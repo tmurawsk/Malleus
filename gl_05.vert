@@ -8,14 +8,17 @@ layout (location = 2) in vec2 texCoord;
 out vec3 vecColor;
 out vec2 TexCoord;
   
-uniform mat4 transform;		//macierz transformacji
+uniform mat4 rotate;		//macierz obrotu
 uniform mat4 view;			//macierz widoku
 uniform mat4 projection;	//macierz perspektywy (rzutowania)
+uniform mat4 translate;		//macierz translacji
 
 void main()
 {
-	if(gl_vertexID >= 130 || (gl_vertexID >= 32 && gl_vertexID <= 55))
-		gl_Position = projection * view * transform * vec4(position, 1.0f);
+	if(gl_VertexID >= 114 || (gl_VertexID >= 32 && gl_VertexID <= 55))
+		gl_Position = projection * view * rotate * vec4(position, 1.0f);
+	else if(gl_VertexID >= 56 && gl_VertexID <= 113)
+		gl_Position = projection * view * translate * vec4(position, 1.0f);
 	else
 		gl_Position = projection * view * vec4(position, 1.0f);
 

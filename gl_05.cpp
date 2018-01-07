@@ -15,6 +15,7 @@ using namespace std;
 
 const GLuint WIDTH = 800, HEIGHT = 600;
 GLfloat posX = 0.0f, posY = 1.0f, posZ = -4.0f, lookX = posX, lookY = posY, lookZ = posZ+3.0f, lookAngleH = 90.0f, lookAngleV = 0.0f;
+GLfloat rotate_speed = 0.1f, translate_speed = 0.000333333333333f;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -112,6 +113,27 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 				lookY = posY + RADIUS * sin(glm::radians(lookAngleV));
 				lookX = posX + trans * cos(glm::radians(lookAngleH));
 				lookZ = posZ + trans * sin(glm::radians(lookAngleH));
+			}
+			break;
+
+		case GLFW_KEY_EQUAL:
+			if (rotate_speed < 4.0f)
+			{
+				rotate_speed += 0.1f;
+				translate_speed += 0.000333333333333f;
+			}
+			break;
+
+		case GLFW_KEY_MINUS:
+			if (rotate_speed - 0.1f >= 0.0f)
+			{
+				rotate_speed -= 0.1f;
+				translate_speed -= 0.000333333333333f;
+			}
+			else
+			{
+				rotate_speed = 0.0f;
+				translate_speed = 0.0f;
 			}
 			break;
 
@@ -451,7 +473,7 @@ int main()
 		for (int i = 131 * 11; i < 179 * 11; i += 22)
 		{
 			vertices[i] = -1.695f;	//x
-			vertices[i + 1] = 0.8f + 0.148 * cos(glm::radians(angle));	//y
+			vertices[i + 1] = 0.8f + 0.148f * cos(glm::radians(angle));	//y
 			vertices[i + 2] = 0.148f * sin(glm::radians(angle));	//z
 			vertices[i + 3] = 0.4f;	//r
 			vertices[i + 4] = 0.2f;	//g
@@ -463,7 +485,7 @@ int main()
 			vertices[i + 10] = sin(glm::radians(angle));	//nz
 
 			vertices[i + 11] = 1.104f;	//x
-			vertices[i + 12] = 0.8f + 0.148 * cos(glm::radians(angle));	//y
+			vertices[i + 12] = 0.8f + 0.148f * cos(glm::radians(angle));	//y
 			vertices[i + 13] = 0.148f * sin(glm::radians(angle));	//z
 			vertices[i + 14] = 0.4f;	//r
 			vertices[i + 15] = 0.2f;	//g
@@ -673,6 +695,7 @@ int main()
 		GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "iipw.png");
 		GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
 
+		bool goingUp = true, goingToRight = true;
 		// main event loop
 		while (!glfwWindowShouldClose(window))
 		{
@@ -695,18 +718,46 @@ int main()
 			*/
 
 
-			glm::mat4 trans;
+			glm::mat4 rotate;
 			static GLfloat rot_angle = 0.0f;
-			trans = glm::translate(trans, glm::vec3(1.2f, -0.8f, 0.0f));
-			trans = glm::rotate(trans, glm::radians(rot_angle), glm::vec3(0.0, 0.0, 1.0)); //obrot wokol osi Z
-			trans = glm::translate(trans, glm::vec3(-1.2f, -0.8f, 0.0f));
-			rot_angle += 0.1f; //predkosc obrotu
-			if (rot_angle >= 360.0f)
-				rot_angle -= 360.0f;
-			GLuint transformLoc = glGetUniformLocation(theProgram.get_programID(), "transform");
-			glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
+			rotate = glm::translate(rotate, glm::vec3(-1.2f, 0.8f, 0.0f));
+			rotate = glm::rotate(rotate, glm::radians(rot_angle), glm::vec3(0.0, 0.0, 1.0)); //obrot wokol osi Z
+			rotate = glm::translate(rotate, glm::vec3(1.2f, -0.8f, 0.0f));
+			if (goingUp)
+				rot_angle += rotate_speed; //predkosc obrotu
+			else
+				rot_angle -= rotate_speed;
+			if (rot_angle >= 90.0f)
+				goingUp = false;
+			if (rot_angle <= 0.0f)
+				goingUp = true;
+			GLuint rotateLoc = glGetUniformLocation(theProgram.get_programID(), "rotate");
+			glUniformMatrix4fv(rotateLoc, 1, GL_FALSE, glm::value_ptr(rotate));
 
 
+			glm::mat4 trans;
+			static GLfloat trans_z = 0.0f;
+			trans = glm::translate(trans, glm::vec3(0.0f, 0.0f, -trans_z));
+			if (goingToRight)
+				trans_z += translate_speed;
+			else
+				trans_z -= translate_speed;
+			if (trans_z >= 0.6f)
+			{
+				goingToRight = false;
+				goingUp = true;
+				trans_z = 0.6f;
+				rot_angle = 0.0f;
+			}
+			if (trans_z <= 0.0f)
+			{
+				goingToRight = true;
+				goingUp = true;
+				trans_z = 0.0f;
+				rot_angle = 0.0f;
+			}
+			GLuint translateLoc = glGetUniformLocation(theProgram.get_programID(), "translate");
+			glUniformMatrix4fv(translateLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
 			//----------------
 			//glm::mat4 camRot;
@@ -729,7 +780,6 @@ int main()
 			GLint projectionLoc = glGetUniformLocation(theProgram.get_programID(), "projection");
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 			glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
-			
 
 
 
