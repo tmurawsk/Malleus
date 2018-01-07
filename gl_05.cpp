@@ -10,7 +10,7 @@ using namespace std;
 #include <glm/gtc/type_ptr.hpp>
 #include <math.h>
 
-#define MOVE_SPEED 0.3f
+#define MOVE_SPEED 0.1f
 #define RADIUS 3.0f
 
 const GLuint WIDTH = 800, HEIGHT = 600;
@@ -276,21 +276,21 @@ int main()
 			2.0f, 0.0f, -1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	//18
 			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	//19
 
-			-1.2f, 1.0f, -0.8f,		0.05f, 0.9f, 0.05f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	//20
-			-0.8f, 0.2f, -0.8f,		0.05f, 0.9f, 0.05f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	//21
-			-1.6f, 0.2f, -0.8f,		0.05f, 0.9f, 0.05f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	//22
+			-1.2f, 1.0f, -0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	//20
+			-0.8f, 0.2f, -0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	//21
+			-1.6f, 0.2f, -0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	//22
 
-			-1.2f, 1.0f, -0.4f,		0.05f, 0.9f, 0.05f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	//23
-			-0.8f, 0.2f, -0.4f,		0.05f, 0.9f, 0.05f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	//24
-			-1.6f, 0.2f, -0.4f,		0.05f, 0.9f, 0.05f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	//25
+			-1.2f, 1.0f, -0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	//23
+			-0.8f, 0.2f, -0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	//24
+			-1.6f, 0.2f, -0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	//25
 
-			-1.2f, 1.0f, 0.4f,		0.05f, 0.9f, 0.05f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	//26
-			-0.8f, 0.2f, 0.4f,		0.05f, 0.9f, 0.05f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	//27
-			-1.6f, 0.2f, 0.4f,		0.05f, 0.9f, 0.05f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	//28
+			-1.2f, 1.0f, 0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	//26
+			-0.8f, 0.2f, 0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	//27
+			-1.6f, 0.2f, 0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	//28
 
-			-1.2f, 1.0f, 0.8f,		0.05f, 0.9f, 0.05f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	//29
-			-0.8f, 0.2f, 0.8f,		0.05f, 0.9f, 0.05f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	//30
-			-1.6f, 0.2f, 0.8f,		0.05f, 0.9f, 0.05f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	//31
+			-1.2f, 1.0f, 0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	//29
+			-0.8f, 0.2f, 0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	//30
+			-1.6f, 0.2f, 0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	//31
 
 			1.696f, 1.24f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, 1.0f, 0.0f,	//32
 			1.696f, 1.24f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, 1.0f, 0.0f,	//33
@@ -336,13 +336,10 @@ int main()
 		};
 
 		float angle = 0.0f;
-		for (int i = 65 * 11; i < 89 * 11; i += 11)
+		for (int i = 65 * 11; i < 89 * 11; i += 22) //65-88, 90-113 (odlewy)
 		{
-			vertices[i] = 1.3f - 0.237f * sin(glm::radians(angle));	//x
-			if (i % 2 == 1)
-				vertices[i + 1] = 0.369f;	//y
-			else
-				vertices[i + 1] = 0.305f;	//y
+			vertices[i] = 1.4f - 0.237f * sin(glm::radians(angle));	//x
+			vertices[i + 1] = 0.369f;	//y
 			vertices[i + 2] = 0.6f + 0.237f * cos(glm::radians(angle)); //z
 			vertices[i + 3] = 0.4f;	//r
 			vertices[i + 4] = 0.0f;	//g
@@ -352,11 +349,135 @@ int main()
 			vertices[i + 8] = sin(glm::radians(angle));	//nx
 			vertices[i + 9] = 0.0f;	//ny
 			vertices[i + 10] = cos(glm::radians(angle));//nz
+
+			vertices[i + 11] = 1.4f - 0.237f * sin(glm::radians(angle));	//x
+			vertices[i + 12] = 0.305f;	//y
+			vertices[i + 13] = 0.6f + 0.237f * cos(glm::radians(angle)); //z
+			vertices[i + 14] = 0.4f;	//r
+			vertices[i + 15] = 0.0f;	//g
+			vertices[i + 16] = 1.0f;	//b
+			vertices[i + 17] = 1.0f;	//tx
+			vertices[i + 18] = 0.0f;	//ty
+			vertices[i + 19] = sin(glm::radians(angle));	//nx
+			vertices[i + 20] = 0.0f;	//ny
+			vertices[i + 21] = cos(glm::radians(angle));//nz
+
+
+			int pos = i + 25 * 11;
+			vertices[pos] = 1.4f - 0.237f * sin(glm::radians(angle));	//x
+			vertices[pos + 1] = 0.369f;	//y
+			vertices[pos + 2] = 0.237f * cos(glm::radians(angle)); //z
+			vertices[pos + 3] = 0.4f;	//r
+			vertices[pos + 4] = 0.0f;	//g
+			vertices[pos + 5] = 1.0f;	//b
+			vertices[pos + 6] = 1.0f;	//tx
+			vertices[pos + 7] = 0.0f;	//ty
+			vertices[pos + 8] = sin(glm::radians(angle));	//nx
+			vertices[pos + 9] = 0.0f;	//ny
+			vertices[pos + 10] = cos(glm::radians(angle));//nz
+
+			vertices[pos + 11] = 1.4f - 0.237f * sin(glm::radians(angle));	//x
+			vertices[pos + 12] = 0.305f;//y
+			vertices[pos + 13] = 0.237f * cos(glm::radians(angle)); //z
+			vertices[pos + 14] = 0.4f;	//r
+			vertices[pos + 15] = 0.0f;	//g
+			vertices[pos + 16] = 1.0f;	//b
+			vertices[pos + 17] = 1.0f;	//tx
+			vertices[pos + 18] = 0.0f;	//ty
+			vertices[pos + 19] = sin(glm::radians(angle));	//nx
+			vertices[pos + 20] = 0.0f;	//ny
+			vertices[pos + 21] = cos(glm::radians(angle));//nz
 			
+			angle += 30.0f;
+		}
+
+		int pos = 89 * 11; //89
+		vertices[pos] = 1.4f;	//x
+		vertices[pos + 1] = 0.369f;	//y
+		vertices[pos + 2] = 0.0f;	//z
+		vertices[pos + 3] = 0.4f;	//r
+		vertices[pos + 4] = 0.0f;	//g
+		vertices[pos + 5] = 1.0f;	//b
+		vertices[pos + 6] = 1.0f;	//tx
+		vertices[pos + 7] = 0.0f;	//ty
+		vertices[pos + 8] = 0.0f;	//nx
+		vertices[pos + 9] = 1.0f;	//ny
+		vertices[pos + 10] = 0.0f;	//nz
+
+		angle = 0.0f;
+		for (int i = 114 * 11; i < 130 * 11; i += 22) //114-129 (poprzeczka)
+		{
+			vertices[i] = -1.2f - 0.059f * sin(glm::radians(angle));	//x
+			vertices[i + 1] = 0.8f + 0.059f * cos(glm::radians(angle));	//y
+			vertices[i + 2] = -0.4f; //z
+			vertices[i + 3] = 0.7f;	//r
+			vertices[i + 4] = 0.7f;	//g
+			vertices[i + 5] = 0.7f;	//b
+			vertices[i + 6] = 1.0f;	//tx
+			vertices[i + 7] = 0.0f;	//ty
+			vertices[i + 8] = sin(glm::radians(angle));	//nx
+			vertices[i + 9] = cos(glm::radians(angle));	//ny
+			vertices[i + 10] = 0.0f;//nz
+
+			vertices[i + 11] = -1.2f - 0.059f * sin(glm::radians(angle));	//x
+			vertices[i + 12] = 0.8f + 0.059f * cos(glm::radians(angle));	//y
+			vertices[i + 13] = 0.4f;	//z
+			vertices[i + 14] = 0.7f;	//r
+			vertices[i + 15] = 0.7f;	//g
+			vertices[i + 16] = 0.7f;	//b
+			vertices[i + 17] = 1.0f;	//tx
+			vertices[i + 18] = 0.0f;	//ty
+			vertices[i + 19] = sin(glm::radians(angle));	//nx
+			vertices[i + 20] = cos(glm::radians(angle));	//ny
+			vertices[i + 21] = 0.0f;//nz
+
+			angle += 45.0f;
+		}
+
+		pos = 130 * 11; //130
+		vertices[pos] = -1.695f;	//x
+		vertices[pos + 1] = 0.8f;	//y
+		vertices[pos + 2] = 0.0f;	//z
+		vertices[pos + 3] = 0.4f;	//r
+		vertices[pos + 4] = 0.2f;	//g
+		vertices[pos + 5] = 0.0f;	//b
+		vertices[pos + 6] = 1.0f;	//tx
+		vertices[pos + 7] = 0.0f;	//ty
+		vertices[pos + 8] = 1.0f;	//nx
+		vertices[pos + 9] = 0.0f;	//ny
+		vertices[pos + 10] = 0.0f;	//nz
+
+		angle = 0.0f;
+		for (int i = 131 * 11; i < 179 * 11; i += 22)
+		{
+			vertices[i] = -1.695f;	//x
+			vertices[i + 1] = 0.8f + 0.148 * cos(glm::radians(angle));	//y
+			vertices[i + 2] = 0.148f * sin(glm::radians(angle));	//z
+			vertices[i + 3] = 0.4f;	//r
+			vertices[i + 4] = 0.2f;	//g
+			vertices[i + 5] = 0.0f;	//b
+			vertices[i + 6] = 1.0f;	//tx
+			vertices[i + 7] = 0.0f;	//ty
+			vertices[i + 8] = 0.0f;	//nx
+			vertices[i + 9] = cos(glm::radians(angle));	//ny
+			vertices[i + 10] = sin(glm::radians(angle));	//nz
+
+			vertices[i + 11] = 1.104f;	//x
+			vertices[i + 12] = 0.8f + 0.148 * cos(glm::radians(angle));	//y
+			vertices[i + 13] = 0.148f * sin(glm::radians(angle));	//z
+			vertices[i + 14] = 0.4f;	//r
+			vertices[i + 15] = 0.2f;	//g
+			vertices[i + 16] = 0.0f;	//b
+			vertices[i + 17] = 1.0f;	//tx
+			vertices[i + 18] = 0.0f;	//ty
+			vertices[i + 19] = 0.0f;	//nx
+			vertices[i + 20] = cos(glm::radians(angle));	//ny
+			vertices[i + 21] = sin(glm::radians(angle));	//nz
+
 			angle += 20.0f;
 		}
 
-		GLuint indices[] = {
+		GLuint indices[(44+24+48+16+54)*3] = {
 			0, 1, 2,
 			0, 2, 3,	//Podstawa-top
 			4, 5, 6,
@@ -371,7 +492,8 @@ int main()
 			20, 22, 25,
 			20, 25, 23,
 			20, 23, 24,
-			20, 24, 21,	//Trzymak-right
+			20, 24, 21,
+			23, 25, 24,	//Trzymak-right
 			26, 27, 28,
 			26, 28, 31,
 			26, 31, 29,
@@ -399,8 +521,116 @@ int main()
 			63, 62, 57,
 			63, 57, 56,
 			63, 56, 59,
-			63, 59, 60	//Odlewnia
+			63, 59, 60	//Odlewnia, 44 sciany
 		};
+
+		pos = 1;
+		for (int i = 44*3; i < (44+24+48)*3; i += 18) //Odlewy
+		{
+			indices[i] = 64;
+			indices[i + 1] = 64 + pos;
+			if (64 + pos + 2 < 89)
+				indices[i + 2] = 64 + pos + 2;
+			else
+				indices[i + 2] = 65;
+
+			indices[i + 3] = 64 + pos;
+			indices[i + 4] = 64 + pos + 1;
+			if (64 + pos + 3 < 89)
+				indices[i + 5] = 64 + pos + 3;
+			else
+				indices[i + 5] = 66;
+			
+			indices[i + 6] = 64 + pos;
+			if (64 + pos + 3 < 89)
+				indices[i + 7] = 64 + pos + 3;
+			else
+				indices[i + 7] = 66;
+			if (64 + pos + 2 < 89)
+				indices[i + 8] = 64 + pos + 2;
+			else
+				indices[i + 8] = 65;
+
+
+			indices[i + 9] = 89;
+			indices[i + 10] = 89 + pos;
+			if (89 + pos + 2 < 114)
+				indices[i + 11] = 89 + pos + 2;
+			else
+				indices[i + 11] = 90;
+			
+			indices[i + 12] = 89 + pos;
+			indices[i + 13] = 89 + pos + 1;
+			if (89 + pos + 3 < 114)
+				indices[i + 14] = 89 + pos + 3;
+			else
+				indices[i + 14] = 91;
+
+			indices[i + 15] = 89 + pos;
+			if (89 + pos + 3 < 114)
+				indices[i + 16] = 89 + pos + 3;
+			else
+				indices[i + 16] = 91;
+			if (89 + pos + 2 < 114)
+				indices[i + 17] = 89 + pos + 2;
+			else
+				indices[i + 17] = 90;
+
+			pos += 2;
+		}
+
+		pos = 1;
+		for (int i = (44 + 24 + 48) * 3; i < (44 + 24 + 48 + 16)*3; i += 6)
+		{
+			indices[i] = 113 + pos;
+			indices[i + 1] = 113 + pos + 1;
+			if (113 + pos + 3 < 130)
+				indices[i + 2] = 113 + pos + 3;
+			else
+				indices[i + 2] = 115;
+
+			indices[i + 3] = 113 + pos;
+			if (113 + pos + 3 < 130)
+				indices[i + 4] = 113 + pos + 3;
+			else
+				indices[i + 4] = 115;
+			if (113 + pos + 2 < 130)
+				indices[i + 5] = 113 + pos + 2;
+			else
+				indices[i + 5] = 114;
+
+			pos += 2;
+		}
+
+		pos = 1;
+		for (int i = (44 + 24 + 48 + 16) * 3; i < (44 + 24 + 48 + 16 + 54) * 3; i += 9) //rekojesc
+		{
+			indices[i] = 130;
+			indices[i + 1] = 130 + pos;
+			if (130 + pos + 2 < 179)
+				indices[i + 2] = 130 + pos + 2;
+			else
+				indices[i + 2] = 131;
+
+			indices[i + 3] = 130 + pos;
+			indices[i + 4] = 130 + pos + 1;
+			if (130 + pos + 3 < 179)
+				indices[i + 5] = 130 + pos + 3;
+			else
+				indices[i + 5] = 132;
+
+			indices[i + 6] = 130 + pos;
+			if (130 + pos + 3 < 179)
+				indices[i + 7] = 130 + pos + 3;
+			else
+				indices[i + 7] = 132;
+			if (130 + pos + 2 < 179)
+				indices[i + 8] = 130 + pos + 2;
+			else
+				indices[i + 8] = 131;
+
+			pos += 2;
+		}
 
 		GLuint VBO, EBO, VAO;
 		glGenVertexArrays(1, &VAO);
@@ -467,13 +697,14 @@ int main()
 
 			glm::mat4 trans;
 			static GLfloat rot_angle = 0.0f;
-			trans = glm::rotate(trans, -glm::radians(rot_angle), glm::vec3(1.0, 0.0, 0.0)); //obrot wokol osi X
+			trans = glm::translate(trans, glm::vec3(1.2f, -0.8f, 0.0f));
+			trans = glm::rotate(trans, glm::radians(rot_angle), glm::vec3(0.0, 0.0, 1.0)); //obrot wokol osi Z
+			trans = glm::translate(trans, glm::vec3(-1.2f, -0.8f, 0.0f));
 			rot_angle += 0.1f; //predkosc obrotu
 			if (rot_angle >= 360.0f)
 				rot_angle -= 360.0f;
 			GLuint transformLoc = glGetUniformLocation(theProgram.get_programID(), "transform");
 			glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
-
 
 
 

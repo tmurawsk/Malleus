@@ -14,8 +14,10 @@ uniform mat4 projection;	//macierz perspektywy (rzutowania)
 
 void main()
 {
-	//gl_Position = projection * view * transform * vec4(position, 1.0f);
-	gl_Position = projection * view * vec4(position, 1.0f);
+	if(gl_vertexID >= 130 || (gl_vertexID >= 32 && gl_vertexID <= 55))
+		gl_Position = projection * view * transform * vec4(position, 1.0f);
+	else
+		gl_Position = projection * view * vec4(position, 1.0f);
 
     vecColor = color;
     TexCoord = texCoord;
