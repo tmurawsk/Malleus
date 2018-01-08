@@ -4,10 +4,12 @@ layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 color;
 layout (location = 2) in vec2 texCoord;
 layout (location = 3) in vec3 normal;
+layout (location = 4) in float texID;
 
 out vec3 vecColor;
 out vec2 TexCoord;
 smooth out vec3 vecNormal;
+out float TexID;
 
 uniform mat4 rotate;		//macierz obrotu
 uniform mat4 view;			//macierz widoku
@@ -29,4 +31,5 @@ void main()
 
 	vec4 vRes = normals*vec4(normal, 0.0f);
 	vecNormal = vRes.xyz;
+	TexID = texID;
 } 
