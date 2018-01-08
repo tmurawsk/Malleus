@@ -13,8 +13,12 @@ using namespace std;
 #define MOVE_SPEED 0.1f
 #define RADIUS 3.0f
 
-const GLuint WIDTH = 800, HEIGHT = 600;
-GLfloat posX = 0.0f, posY = 1.0f, posZ = -4.0f, lookX = posX, lookY = posY, lookZ = posZ+3.0f, lookAngleH = 90.0f, lookAngleV = 0.0f;
+const GLuint WIDTH = 1280, HEIGHT = 1024;
+GLfloat posX = 0.0f, posY = 1.0f, posZ = -4.0f;
+GLfloat lookAngleH = 90.0f, lookAngleV = 0.0f;
+GLfloat lookX = posX + RADIUS * cos(glm::radians(lookAngleV)) * cos(glm::radians(lookAngleH));
+GLfloat lookY = posY + RADIUS * sin(glm::radians(lookAngleV));
+GLfloat lookZ = posZ + RADIUS * cos(glm::radians(lookAngleV)) * sin(glm::radians(lookAngleH));
 GLfloat rotate_speed = 0.1f, translate_speed = 0.000333333333333f;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -29,22 +33,28 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		switch (key)
 		{		
 		case GLFW_KEY_W:
-			trans = MOVE_SPEED * cos(glm::radians(lookAngleH));
+			trans = MOVE_SPEED * cos(glm::radians(lookAngleV)) * cos(glm::radians(lookAngleH));
 			posX += trans;
 			lookX += trans;
-			trans = MOVE_SPEED * sin(glm::radians(lookAngleH));
+			trans = MOVE_SPEED * cos(glm::radians(lookAngleV)) * sin(glm::radians(lookAngleH));
 			posZ += trans;
 			lookZ += trans;
+			trans = MOVE_SPEED * sin(glm::radians(lookAngleV));
+			posY += trans;
+			lookY += trans;
 			move = true;
 			break;
 
 		case GLFW_KEY_S:
-			trans = MOVE_SPEED * cos(glm::radians(lookAngleH));
+			trans = MOVE_SPEED * cos(glm::radians(lookAngleV)) * cos(glm::radians(lookAngleH));
 			posX -= trans;
 			lookX -= trans;
-			trans = MOVE_SPEED * sin(glm::radians(lookAngleH));
+			trans = MOVE_SPEED * cos(glm::radians(lookAngleV)) * sin(glm::radians(lookAngleH));
 			posZ -= trans;
 			lookZ -= trans;
+			trans = MOVE_SPEED * sin(glm::radians(lookAngleV));
+			posY -= trans;
+			lookY -= trans;
 			move = true;
 			break;
 
@@ -69,36 +79,50 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			break;
 
 		case GLFW_KEY_R:
-			posY += MOVE_SPEED;
-			lookY += MOVE_SPEED;
+			trans = MOVE_SPEED * cos(glm::radians(lookAngleV));
+			posY += trans;
+			lookY += trans;
+			trans = MOVE_SPEED * sin(glm::radians(lookAngleV)) * cos(glm::radians(lookAngleH));
+			posX -= trans;
+			lookX -= trans;
+			trans = MOVE_SPEED * sin(glm::radians(lookAngleV)) * sin(glm::radians(lookAngleH));
+			posZ -= trans;
+			lookZ -= trans;
 			move = true;
 			break;
 
 		case GLFW_KEY_F:
-			posY -= MOVE_SPEED;
-			lookY -= MOVE_SPEED;
+			trans = MOVE_SPEED * cos(glm::radians(lookAngleV));
+			posY -= trans;
+			lookY -= trans;
+			trans = MOVE_SPEED * sin(glm::radians(lookAngleV)) * cos(glm::radians(lookAngleH));
+			posX += trans;
+			lookX += trans;
+			trans = MOVE_SPEED * sin(glm::radians(lookAngleV)) * sin(glm::radians(lookAngleH));
+			posZ += trans;
+			lookZ += trans;
 			move = true;
 			break;
 
 		case GLFW_KEY_RIGHT:
 			lookAngleH = (lookAngleH > 360.0f ? (lookAngleH - 355.0f) : (lookAngleH + 5.0f));
-			trans = (RADIUS * cos(glm::radians(lookAngleV)));
+			trans = RADIUS * cos(glm::radians(lookAngleV));
 			lookX = posX + trans * cos(glm::radians(lookAngleH));
 			lookZ = posZ + trans * sin(glm::radians(lookAngleH));
 			break;
 
 		case GLFW_KEY_LEFT:
 			lookAngleH = (lookAngleH < -360.0f ? (lookAngleH + 355.0f) : (lookAngleH - 5.0f));
-			trans = (RADIUS * cos(glm::radians(lookAngleV)));
+			trans = RADIUS * cos(glm::radians(lookAngleV));
 			lookX = posX + trans * cos(glm::radians(lookAngleH));
 			lookZ = posZ + trans * sin(glm::radians(lookAngleH));
 			break;
 
 		case GLFW_KEY_UP:
-			if (lookAngleV < 90.0f)
+			if (lookAngleV+5.0f < 90.0f)
 			{
 				lookAngleV += 5.0f;
-				trans = (RADIUS * cos(glm::radians(lookAngleV)));
+				trans = RADIUS * cos(glm::radians(lookAngleV));
 				lookY = posY + RADIUS * sin(glm::radians(lookAngleV));
 				lookX = posX + trans * cos(glm::radians(lookAngleH));
 				lookZ = posZ + trans * sin(glm::radians(lookAngleH));
@@ -106,10 +130,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			break;
 
 		case GLFW_KEY_DOWN:
-			if (lookAngleV > -90.0f)
+			if (lookAngleV-5.0f > -90.0f)
 			{
 				lookAngleV -= 5.0f;
-				trans = (RADIUS * cos(glm::radians(lookAngleV)));
+				trans = RADIUS * cos(glm::radians(lookAngleV));
 				lookY = posY + RADIUS * sin(glm::radians(lookAngleV));
 				lookX = posX + trans * cos(glm::radians(lookAngleH));
 				lookZ = posZ + trans * sin(glm::radians(lookAngleH));
@@ -273,10 +297,10 @@ int main()
 
 		GLfloat vertices[179*11] = {
 			// coordinates			// color			// texture		// normals
-			2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 0.0f,		0.0f, 1.0f, 0.0f,	//0
-			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 0.0f,		0.0f, 1.0f, 0.0f,	//1
+			2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 1.0f,		0.0f, 1.0f, 0.0f,	//0
+			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 0.0f,		0.0f, 1.0f, 0.0f,	//1
 			-2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 0.0f,		0.0f, 1.0f, 0.0f,	//2
-			-2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 0.0f,		0.0f, 1.0f, 0.0f,	//3
+			-2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 1.0f,		0.0f, 1.0f, 0.0f,	//3
 
 			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	//4
 			2.0f, 0.0f, -1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	//5
@@ -677,8 +701,8 @@ int main()
 		glEnableVertexAttribArray(1);
 
 		// vertex texture coordinates
-		// TEKSTURY glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 11 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-		// TEKSTURY glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 11 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(2);
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
 
@@ -707,15 +731,12 @@ int main()
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //czyszczenie bufora koloru i bufora glebokosci
 
 			// Bind Textures using texture units
-			/* TEKSTURY
 			glActiveTexture(GL_TEXTURE0);
-			
 			glBindTexture(GL_TEXTURE_2D, texture0);
 			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture0"), 0);
 			glActiveTexture(GL_TEXTURE1);
 			glBindTexture(GL_TEXTURE_2D, texture1);
 			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
-			*/
 
 
 			glm::mat4 rotate;

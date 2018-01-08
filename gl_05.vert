@@ -3,15 +3,16 @@
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 color;
 layout (location = 2) in vec2 texCoord;
-//layout (location = 3) in vec3 normal; //??
+layout (location = 3) in vec3 normal;
 
 out vec3 vecColor;
 out vec2 TexCoord;
-  
+
 uniform mat4 rotate;		//macierz obrotu
 uniform mat4 view;			//macierz widoku
 uniform mat4 projection;	//macierz perspektywy (rzutowania)
 uniform mat4 translate;		//macierz translacji
+//uniform normals;			//macierz normalnych
 
 void main()
 {
