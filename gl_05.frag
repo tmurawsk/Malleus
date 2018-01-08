@@ -8,12 +8,20 @@ out vec4 color;
 
 uniform sampler2D Texture0;
 uniform sampler2D Texture1;
+uniform sampler2D Texture2;
+uniform sampler2D Texture3;
 
 void main()
 {
     //color = vec4(vecColor, 1.0f) * mix(texture(Texture0, TexCoord), texture(Texture1, TexCoord),0.4);
-	if(TexID > 0.0f)
+	if(TexID == 1.0f)
+		color = texture2D(Texture0, TexCoord);
+	else if(TexID == 2.0f)
 		color = texture2D(Texture1, TexCoord);
+	else if(TexID == 3.0f)
+		color = texture2D(Texture2, TexCoord);
+	else if(TexID == 4.0f)
+		color = texture2D(Texture3, TexCoord);
 	else
 		color = vec4(vecColor, 1.0f);
 }

@@ -297,88 +297,88 @@ int main()
 
 		GLfloat vertices[179*12] = {
 			// coordinates			// color			// texture		// normals
-			2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 1.0f,		0.0f, 1.0f, 0.0f, 1.0f,	//0
-			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 0.0f,		0.0f, 1.0f, 0.0f, 1.0f,	//1
-			-2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 0.0f,		0.0f, 1.0f, 0.0f, 1.0f,	//2
-			-2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 1.0f,		0.0f, 1.0f, 0.0f, 1.0f,	//3
+			2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 2.0f,		0.0f, 1.0f, 0.0f,	1.0f,	//0
+			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 0.0f,		0.0f, 1.0f, 0.0f,	1.0f,	//1
+			-2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 0.0f,		0.0f, 1.0f, 0.0f,	1.0f,	//2
+			-2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 2.0f,		0.0f, 1.0f, 0.0f,	1.0f,	//3
 
-			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 1.0f,		0.0f, 0.0f, -1.0f, 1.0f,	//4
-			2.0f, 0.0f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 0.0f,		0.0f, 0.0f, -1.0f, 1.0f,	//5
-			-2.0f, 0.0f, -1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f, 1.0f,	//6
-			-2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 1.0f,		0.0f, 0.0f, -1.0f, 1.0f,	//7
+			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 2.0f,		0.0f, 0.0f, -1.0f,	1.0f,	//4
+			2.0f, 0.0f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 1.8f,		0.0f, 0.0f, -1.0f,	1.0f,	//5
+			-2.0f, 0.0f, -1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 1.8f,		0.0f, 0.0f, -1.0f,	1.0f,	//6
+			-2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 2.0f,		0.0f, 0.0f, -1.0f,	1.0f,	//7
 
-			-2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 1.0f,		-1.0f, 0.0f, 0.0f, 1.0f,	//8
-			-2.0f, 0.0f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 0.0f,		-1.0f, 0.0f, 0.0f, 1.0f,	//9
-			-2.0f, 0.0f, 1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f, 1.0f,	//10
-			-2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 1.0f,		-1.0f, 0.0f, 0.0f, 1.0f,	//11
+			-2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 2.0f,		-1.0f, 0.0f, 0.0f,	1.0f,	//8
+			-2.0f, 0.0f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 1.9f,		-1.0f, 0.0f, 0.0f,	1.0f,	//9
+			-2.0f, 0.0f, 1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 1.9f,		-1.0f, 0.0f, 0.0f,	1.0f,	//10
+			-2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 2.0f,		-1.0f, 0.0f, 0.0f,	1.0f,	//11
 
-			-2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 1.0f,		0.0f, 0.0f, 1.0f, 1.0f,	//12
-			-2.0f, 0.0f, 1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 0.0f,		0.0f, 0.0f, 1.0f, 1.0f,	//13
-			2.0f, 0.0f, 1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f, 1.0f,	//14
-			2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 1.0f,		0.0f, 0.0f, 1.0f, 1.0f,	//15
+			-2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 0.2f,		0.0f, 0.0f, 1.0f,	1.0f,	//12
+			-2.0f, 0.0f, 1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 0.0f,		0.0f, 0.0f, 1.0f,	1.0f,	//13
+			2.0f, 0.0f, 1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 0.0f,		0.0f, 0.0f, 1.0f,	1.0f,	//14
+			2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 0.2f,		0.0f, 0.0f, 1.0f,	1.0f,	//15
 
-			2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 1.0f,		1.0f, 0.0f, 0.0f, 1.0f,	//16
-			2.0f, 0.0f, 1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 0.0f,		1.0f, 0.0f, 0.0f, 1.0f,	//17
-			2.0f, 0.0f, -1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f, 1.0f,	//18
-			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	1.0f, 1.0f,		1.0f, 0.0f, 0.0f, 1.0f,	//19
+			2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 2.0f,		1.0f, 0.0f, 0.0f,	1.0f,	//16
+			2.0f, 0.0f, 1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 1.9f,		1.0f, 0.0f, 0.0f,	1.0f,	//17
+			2.0f, 0.0f, -1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 1.9f,		1.0f, 0.0f, 0.0f,	1.0f,	//18
+			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 2.0f,		1.0f, 0.0f, 0.0f,	1.0f,	//19
 
-			-1.2f, 1.0f, -0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f, 0.0f,	//20
-			-0.8f, 0.2f, -0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f, 0.0f,	//21
-			-1.6f, 0.2f, -0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f, 0.0f,	//22
+			-1.2f, 1.0f, -0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	0.0f,	//20
+			-0.8f, 0.2f, -0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	0.0f,	//21
+			-1.6f, 0.2f, -0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	0.0f,	//22
 
-			-1.2f, 1.0f, -0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f, 0.0f,	//23
-			-0.8f, 0.2f, -0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f, 0.0f,	//24
-			-1.6f, 0.2f, -0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f, 0.0f,	//25
+			-1.2f, 1.0f, -0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f,	//23
+			-0.8f, 0.2f, -0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f,	//24
+			-1.6f, 0.2f, -0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f,	//25
 
-			-1.2f, 1.0f, 0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f, 0.0f,	//26
-			-0.8f, 0.2f, 0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f, 0.0f,	//27
-			-1.6f, 0.2f, 0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f, 0.0f,	//28
+			-1.2f, 1.0f, 0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	0.0f,	//26
+			-0.8f, 0.2f, 0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	0.0f,	//27
+			-1.6f, 0.2f, 0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	0.0f,	//28
 
-			-1.2f, 1.0f, 0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f, 0.0f,	//29
-			-0.8f, 0.2f, 0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f, 0.0f,	//30
-			-1.6f, 0.2f, 0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f, 0.0f,	//31
+			-1.2f, 1.0f, 0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f,	//29
+			-0.8f, 0.2f, 0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f,	//30
+			-1.6f, 0.2f, 0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f,	//31
 
-			1.696f, 1.24f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, 1.0f, 0.0f, 0.0f,	//32
-			1.696f, 1.24f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, 1.0f, 0.0f, 0.0f,	//33
-			1.104f, 1.24f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, 1.0f, 0.0f, 0.0f,	//34
-			1.104f, 1.24f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, 1.0f, 0.0f, 0.0f,	//35
+			1.696f, 1.24f, 0.296f,	0.3f, 0.3f, 0.3f,	0.0f, 1.0f,		0.0f, 1.0f, 0.0f,	2.0f,	//32
+			1.696f, 1.24f, -0.296f,	0.3f, 0.3f, 0.3f,	0.0f, 0.0f,		0.0f, 1.0f, 0.0f,	2.0f,	//33
+			1.104f, 1.24f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, 1.0f, 0.0f,	2.0f,	//34
+			1.104f, 1.24f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 1.0f,		0.0f, 1.0f, 0.0f,	2.0f,	//35
 
-			1.696f, 0.36f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, -1.0f, 0.0f, 0.0f,	//36
-			1.696f, 0.36f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, -1.0f, 0.0f, 0.0f,	//37
-			1.104f, 0.36f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, -1.0f, 0.0f, 0.0f,	//38
-			1.104f, 0.36f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, -1.0f, 0.0f, 0.0f,	//39
+			1.696f, 0.36f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 1.0f,		0.0f, -1.0f, 0.0f,	2.0f,	//36
+			1.696f, 0.36f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, -1.0f, 0.0f,	2.0f,	//37
+			1.104f, 0.36f, -0.296f,	0.3f, 0.3f, 0.3f,	0.0f, 0.0f,		0.0f, -1.0f, 0.0f,	2.0f,	//38
+			1.104f, 0.36f, 0.296f,	0.3f, 0.3f, 0.3f,	0.0f, 1.0f,		0.0f, -1.0f, 0.0f,	2.0f,	//39
 
-			1.696f, 1.24f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f, 0.0f,	//40
-			1.696f, 0.36f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f, 0.0f,	//41
-			1.104f, 0.36f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f, 0.0f,	//42
-			1.104f, 1.24f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f, 0.0f,	//43
+			1.696f, 1.24f, -0.296f,	0.3f, 0.3f, 0.3f,	0.0f, 1.0f,		0.0f, 0.0f, -1.0f,	3.0f,	//40
+			1.696f, 0.36f, -0.296f,	0.3f, 0.3f, 0.3f,	0.0f, 0.0f,		0.0f, 0.0f, -1.0f,	3.0f,	//41
+			1.104f, 0.36f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	3.0f,	//42
+			1.104f, 1.24f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 1.0f,		0.0f, 0.0f, -1.0f,	3.0f,	//43
 
-			1.104f, 1.24f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f, 0.0f,	//44
-			1.104f, 0.36f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f, 0.0f,	//45
-			1.104f, 0.36f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f, 0.0f,	//46
-			1.104f, 1.24f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f, 0.0f,	//47
+			1.104f, 1.24f, -0.296f,	0.3f, 0.3f, 0.3f,	0.0f, 1.0f,		-1.0f, 0.0f, 0.0f,	3.0f,	//44
+			1.104f, 0.36f, -0.296f,	0.3f, 0.3f, 0.3f,	0.0f, 0.0f,		-1.0f, 0.0f, 0.0f,	3.0f,	//45
+			1.104f, 0.36f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f,	3.0f,	//46
+			1.104f, 1.24f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 1.0f,		-1.0f, 0.0f, 0.0f,	3.0f,	//47
 
-			1.104f, 1.24f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f, 0.0f,	//48
-			1.104f, 0.36f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f, 0.0f,	//49
-			1.696f, 0.36f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f, 0.0f,	//50
-			1.696f, 1.24f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f, 0.0f,	//51
+			1.104f, 1.24f, 0.296f,	0.3f, 0.3f, 0.3f,	0.0f, 1.0f,		0.0f, 0.0f, 1.0f,	3.0f,	//48
+			1.104f, 0.36f, 0.296f,	0.3f, 0.3f, 0.3f,	0.0f, 0.0f,		0.0f, 0.0f, 1.0f,	3.0f,	//49
+			1.696f, 0.36f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	3.0f,	//50
+			1.696f, 1.24f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 1.0f,		0.0f, 0.0f, 1.0f,	3.0f,	//51
 
-			1.696f, 1.24f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f, 0.0f,	//52
-			1.696f, 0.36f, 0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f, 0.0f,	//53
-			1.696f, 0.36f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f, 0.0f,	//54
-			1.696f, 1.24f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f, 0.0f,	//55
+			1.696f, 1.24f, 0.296f,	0.3f, 0.3f, 0.3f,	0.0f, 1.0f,		1.0f, 0.0f, 0.0f,	3.0f,	//52
+			1.696f, 0.36f, 0.296f,	0.3f, 0.3f, 0.3f,	0.0f, 0.0f,		1.0f, 0.0f, 0.0f,	3.0f,	//53
+			1.696f, 0.36f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	3.0f,	//54
+			1.696f, 1.24f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 1.0f,		1.0f, 0.0f, 0.0f,	3.0f,	//55
 
-			1.743f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f, 0.0f,	//56
-			1.743f, 0.2f, 0.93f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f, 0.0f,	//57
-			1.743f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f, 0.0f,	//58
-			1.743f, 0.305f, -0.344f,1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f, 0.0f,	//59
+			1.743f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	0.0f,	//56
+			1.743f, 0.2f, 0.93f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	0.0f,	//57
+			1.743f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	0.0f,	//58
+			1.743f, 0.305f, -0.344f,1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	0.0f,	//59
 
-			1.07f, 0.305f, -0.344f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f, 0.0f,	//60
-			1.07f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f, 0.0f,	//61
-			1.07f, 0.2f, 0.93f,		1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f, 0.0f,	//62
-			1.07f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f, 0.0f,	//63
+			1.07f, 0.305f, -0.344f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f,	0.0f,	//60
+			1.07f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f,	0.0f,	//61
+			1.07f, 0.2f, 0.93f,		1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f,	0.0f,	//62
+			1.07f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f,	0.0f,	//63
 
-			1.4f, 0.369f, 0.6f,		0.4f, 0.0f, 1.0f,	1.0f, 0.0f,		0.0f, 1.0f, 0.0f, 0.0f	//64
+			1.4f, 0.369f, 0.6f,		0.4f, 0.0f, 1.0f,	0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	4.0f	//64
 		};
 
 		float angle = 0.0f;
@@ -390,12 +390,12 @@ int main()
 			vertices[i + 3] = 0.4f;	//r
 			vertices[i + 4] = 0.0f;	//g
 			vertices[i + 5] = 1.0f;	//b
-			vertices[i + 6] = 1.0f;	//tx
-			vertices[i + 7] = 0.0f;	//ty
+			vertices[i + 6] = 0.5f + 0.5f * sin(glm::radians(angle));	//tx
+			vertices[i + 7] = 0.5f + 0.5f * cos(glm::radians(angle));	//ty
 			vertices[i + 8] = sin(glm::radians(angle));	//nx
 			vertices[i + 9] = 0.0f;	//ny
 			vertices[i + 10] = cos(glm::radians(angle));//nz
-			vertices[i + 11] = 0.0f;
+			vertices[i + 11] = 4.0f;
 
 			vertices[i + 12] = 1.4f - 0.237f * sin(glm::radians(angle));	//x
 			vertices[i + 13] = 0.305f;	//y
@@ -403,12 +403,12 @@ int main()
 			vertices[i + 15] = 0.4f;	//r
 			vertices[i + 16] = 0.0f;	//g
 			vertices[i + 17] = 1.0f;	//b
-			vertices[i + 18] = 1.0f;	//tx
-			vertices[i + 19] = 0.0f;	//ty
+			vertices[i + 18] = 0.5f + 0.5f * sin(glm::radians(angle));	//tx
+			vertices[i + 19] = 0.5f + 0.5f * cos(glm::radians(angle));	//ty
 			vertices[i + 20] = sin(glm::radians(angle));	//nx
 			vertices[i + 21] = 0.0f;	//ny
 			vertices[i + 22] = cos(glm::radians(angle));//nz
-			vertices[i + 23] = 0.0f;
+			vertices[i + 23] = 4.0f;
 
 			int pos = i + 25 * 12;
 			vertices[pos] = 1.4f - 0.237f * sin(glm::radians(angle));	//x
@@ -417,12 +417,12 @@ int main()
 			vertices[pos + 3] = 0.4f;	//r
 			vertices[pos + 4] = 0.0f;	//g
 			vertices[pos + 5] = 1.0f;	//b
-			vertices[pos + 6] = 1.0f;	//tx
-			vertices[pos + 7] = 0.0f;	//ty
+			vertices[pos + 6] = 0.5f + 0.5f * sin(glm::radians(angle));	//tx
+			vertices[pos + 7] = 0.5f + 0.5f * cos(glm::radians(angle));	//ty
 			vertices[pos + 8] = sin(glm::radians(angle));	//nx
 			vertices[pos + 9] = 0.0f;	//ny
 			vertices[pos + 10] = cos(glm::radians(angle));//nz
-			vertices[pos + 11] = 0.0f;
+			vertices[pos + 11] = 4.0f;
 
 			vertices[pos + 12] = 1.4f - 0.237f * sin(glm::radians(angle));	//x
 			vertices[pos + 13] = 0.305f;//y
@@ -447,12 +447,12 @@ int main()
 		vertices[pos + 3] = 0.4f;	//r
 		vertices[pos + 4] = 0.0f;	//g
 		vertices[pos + 5] = 1.0f;	//b
-		vertices[pos + 6] = 1.0f;	//tx
-		vertices[pos + 7] = 0.0f;	//ty
+		vertices[pos + 6] = 0.5f;	//tx
+		vertices[pos + 7] = 0.5f;	//ty
 		vertices[pos + 8] = 0.0f;	//nx
 		vertices[pos + 9] = 1.0f;	//ny
 		vertices[pos + 10] = 0.0f;	//nz
-		vertices[pos + 11] = 0.0f;
+		vertices[pos + 11] = 4.0f;
 
 		angle = 0.0f;
 		for (int i = 114 * 12; i < 130 * 12; i += 2 * 12) //114-129 (poprzeczka)
@@ -726,7 +726,7 @@ int main()
 
 		glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs)
 
-							  // Set the texture wrapping parameters
+		// Set the texture wrapping parameters
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT (usually basic wrapping method)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		// Set texture filtering parameters
@@ -734,8 +734,11 @@ int main()
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 		// prepare textures
-		GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "iipw.png");
-		GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
+		GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "floor.png");
+		GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "hammer.png");
+		GLuint texture2 = LoadMipmapTexture(GL_TEXTURE2, "hammer_side.png");
+		GLuint texture3 = LoadMipmapTexture(GL_TEXTURE3, "wood.png");
+		GLuint texture4 = LoadMipmapTexture(GL_TEXTURE4, "mold.png");
 
 		bool goingUp = true, goingToRight = true;
 		// main event loop
@@ -755,6 +758,15 @@ int main()
 			glActiveTexture(GL_TEXTURE1);
 			glBindTexture(GL_TEXTURE_2D, texture1);
 			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
+			glActiveTexture(GL_TEXTURE2);
+			glBindTexture(GL_TEXTURE_2D, texture2);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture2"), 2);
+			glActiveTexture(GL_TEXTURE3);
+			glBindTexture(GL_TEXTURE_2D, texture3);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture3"), 3);
+			glActiveTexture(GL_TEXTURE3);
+			glBindTexture(GL_TEXTURE_2D, texture4);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture4"), 4);
 
 
 			glm::mat4 rotate;
