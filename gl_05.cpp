@@ -295,7 +295,7 @@ int main()
 			20, 22, 23
 		};*/
 
-		GLfloat vertices[179*12] = {
+		GLfloat vertices[187*12] = {
 			// coordinates			// color			// texture		// normals
 			2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 2.0f,		0.0f, 1.0f, 0.0f,	1.0f,	//0
 			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 0.0f,		0.0f, 1.0f, 0.0f,	1.0f,	//1
@@ -368,17 +368,17 @@ int main()
 			1.696f, 0.36f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	3.0f,	//54
 			1.696f, 1.24f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 1.0f,		1.0f, 0.0f, 0.0f,	3.0f,	//55
 
-			1.743f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	0.0f,	//56
-			1.743f, 0.2f, 0.93f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	0.0f,	//57
-			1.743f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	0.0f,	//58
-			1.743f, 0.305f, -0.344f,1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	0.0f,	//59
+			1.743f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	0.0f, 2.01f,		1.0f, 0.0f, 0.0f,	6.0f,	//56
+			1.743f, 0.2f, 0.93f,	1.0f, 0.5f, 0.0f,	0.165f, 2.01f,		1.0f, 0.0f, 0.0f,	6.0f,	//57
+			1.743f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	0.165f, 0.0f,		1.0f, 0.0f, 0.0f,	6.0f,	//58
+			1.743f, 0.305f, -0.344f,1.0f, 0.5f, 0.0f,	0.0f, 0.0f,		1.0f, 0.0f, 0.0f,	6.0f,	//59
 
-			1.07f, 0.305f, -0.344f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f,	0.0f,	//60
-			1.07f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f,	0.0f,	//61
-			1.07f, 0.2f, 0.93f,		1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f,	0.0f,	//62
-			1.07f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f,	0.0f,	//63
+			1.07f, 0.305f, -0.344f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f,	6.0f,	//60
+			1.07f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	0.835f, 0.0f,		-1.0f, 0.0f, 0.0f,	6.0f,	//61
+			1.07f, 0.2f, 0.93f,		1.0f, 0.5f, 0.0f,	0.835f, 2.01f,		-1.0f, 0.0f, 0.0f,	6.0f,	//62
+			1.07f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	1.0f, 2.01f,		-1.0f, 0.0f, 0.0f,	6.0f,	//63
 
-			1.4f, 0.369f, 0.6f,		0.4f, 0.0f, 1.0f,	0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	4.0f	//64
+			1.4f, 0.369f, 0.6f,		0.4f, 0.0f, 1.0f,	0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	5.0f	//64
 		};
 
 		float angle = 0.0f;
@@ -395,7 +395,7 @@ int main()
 			vertices[i + 8] = sin(glm::radians(angle));	//nx
 			vertices[i + 9] = 0.0f;	//ny
 			vertices[i + 10] = cos(glm::radians(angle));//nz
-			vertices[i + 11] = 4.0f;
+			vertices[i + 11] = 5.0f;
 
 			vertices[i + 12] = 1.4f - 0.237f * sin(glm::radians(angle));	//x
 			vertices[i + 13] = 0.305f;	//y
@@ -408,7 +408,7 @@ int main()
 			vertices[i + 20] = sin(glm::radians(angle));	//nx
 			vertices[i + 21] = 0.0f;	//ny
 			vertices[i + 22] = cos(glm::radians(angle));//nz
-			vertices[i + 23] = 4.0f;
+			vertices[i + 23] = 5.0f;
 
 			int pos = i + 25 * 12;
 			vertices[pos] = 1.4f - 0.237f * sin(glm::radians(angle));	//x
@@ -422,7 +422,7 @@ int main()
 			vertices[pos + 8] = sin(glm::radians(angle));	//nx
 			vertices[pos + 9] = 0.0f;	//ny
 			vertices[pos + 10] = cos(glm::radians(angle));//nz
-			vertices[pos + 11] = 4.0f;
+			vertices[pos + 11] = 5.0f;
 
 			vertices[pos + 12] = 1.4f - 0.237f * sin(glm::radians(angle));	//x
 			vertices[pos + 13] = 0.305f;//y
@@ -430,12 +430,12 @@ int main()
 			vertices[pos + 15] = 0.4f;	//r
 			vertices[pos + 16] = 0.0f;	//g
 			vertices[pos + 17] = 1.0f;	//b
-			vertices[pos + 18] = 1.0f;	//tx
-			vertices[pos + 19] = 0.0f;	//ty
+			vertices[pos + 18] = 0.5f + 0.5f * sin(glm::radians(angle));	//tx
+			vertices[pos + 19] = 0.5f + 0.5f * cos(glm::radians(angle));	//ty
 			vertices[pos + 20] = sin(glm::radians(angle));	//nx
 			vertices[pos + 21] = 0.0f;	//ny
 			vertices[pos + 22] = cos(glm::radians(angle));//nz
-			vertices[pos + 23] = 0.0f;
+			vertices[pos + 23] = 5.0f;
 
 			angle += 30.0f;
 		}
@@ -452,7 +452,7 @@ int main()
 		vertices[pos + 8] = 0.0f;	//nx
 		vertices[pos + 9] = 1.0f;	//ny
 		vertices[pos + 10] = 0.0f;	//nz
-		vertices[pos + 11] = 4.0f;
+		vertices[pos + 11] = 5.0f;
 
 		angle = 0.0f;
 		for (int i = 114 * 12; i < 130 * 12; i += 2 * 12) //114-129 (poprzeczka)
@@ -532,6 +532,21 @@ int main()
 			angle += 20.0f;
 		}
 
+		GLfloat formSides[] = {
+			1.743f, 0.305f, -0.344f,	1.0f, 0.5f, 0.0f,	0.0f, 1.0f,		0.0f, 0.0f, -1.0f,	6.0f,	//179
+			1.743f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	0.0f, 0.835f,		0.0f, 0.0f, -1.0f,	6.0f,	//180
+			1.07f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	1.0f, 0.835f,		0.0f, 0.0f, -1.0f,	6.0f,	//181
+			1.07f, 0.305f, -0.344f,	1.0f, 0.5f, 0.0f,	1.0f, 1.0f,			0.0f, 0.0f, -1.0f,	6.0f,	//182
+
+			1.07f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	0.0f, 1.0f,			0.0f, 0.0f, 1.0f,	6.0f,	//183
+			1.07f, 0.2f, 0.93f,		1.0f, 0.5f, 0.0f,	0.0f, 0.835f,		0.0f, 0.0f, 1.0f,	6.0f,	//184
+			1.743f, 0.2f, 0.93f,	1.0f, 0.5f, 0.0f,	1.0f, 0.835f,		0.0f, 0.0f, 1.0f,	6.0f,	//185
+			1.743f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	1.0f, 1.0f,			0.0f, 0.0f, 1.0f,	6.0f	//186
+		};
+
+		for (int i = 179 * 12; i < (179 + 8) * 12; i++)
+			vertices[i] = formSides[i - 179*12];
+
 		GLuint indices[(44+24+48+16+54)*3] = {
 			0, 1, 2,
 			0, 2, 3,	//Podstawa-top
@@ -571,10 +586,10 @@ int main()
 			56, 58, 59,
 			60, 61, 62,
 			60, 62, 63,
-			59, 58, 61,
-			59, 61, 60,
-			63, 62, 57,
-			63, 57, 56,
+			179, 180, 181,
+			179, 181, 182,
+			183, 184, 185,
+			183, 185, 186,
 			63, 56, 59,
 			63, 59, 60	//Odlewnia, 44 sciany
 		};
@@ -739,6 +754,7 @@ int main()
 		GLuint texture2 = LoadMipmapTexture(GL_TEXTURE2, "hammer_side.png");
 		GLuint texture3 = LoadMipmapTexture(GL_TEXTURE3, "wood.png");
 		GLuint texture4 = LoadMipmapTexture(GL_TEXTURE4, "mold.png");
+		GLuint texture5 = LoadMipmapTexture(GL_TEXTURE5, "form.png");
 
 		bool goingUp = true, goingToRight = true;
 		// main event loop
@@ -764,9 +780,12 @@ int main()
 			glActiveTexture(GL_TEXTURE3);
 			glBindTexture(GL_TEXTURE_2D, texture3);
 			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture3"), 3);
-			glActiveTexture(GL_TEXTURE3);
+			glActiveTexture(GL_TEXTURE4);
 			glBindTexture(GL_TEXTURE_2D, texture4);
 			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture4"), 4);
+			glActiveTexture(GL_TEXTURE5);
+			glBindTexture(GL_TEXTURE_2D, texture5);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture5"), 5);
 
 
 			glm::mat4 rotate;
