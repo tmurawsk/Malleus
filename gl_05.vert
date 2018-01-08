@@ -7,12 +7,13 @@ layout (location = 3) in vec3 normal;
 
 out vec3 vecColor;
 out vec2 TexCoord;
+smooth out vec3 vecNormal;
 
 uniform mat4 rotate;		//macierz obrotu
 uniform mat4 view;			//macierz widoku
 uniform mat4 projection;	//macierz perspektywy (rzutowania)
 uniform mat4 translate;		//macierz translacji
-//uniform normals;			//macierz normalnych
+uniform mat4 normals;		//macierz normalnych
 
 void main()
 {
@@ -25,4 +26,7 @@ void main()
 
     vecColor = color;
     TexCoord = texCoord;
+
+	vec4 vRes = normals*vec4(normal, 0.0f);
+	vecNormal = vRes.xyz;
 } 

@@ -1,6 +1,7 @@
 #version 330 core
 in vec3 vecColor;
 in vec2 TexCoord;
+smooth in vec3 vecNormal;
 
 out vec4 color;
 
