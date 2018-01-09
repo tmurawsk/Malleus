@@ -1,7 +1,7 @@
 #version 330 core
 in vec3 vecColor;
 in vec2 TexCoord;
-smooth in vec3 vecNormal;
+in vec3 vecNormal;
 in float TexID;
 
 out vec4 color;
@@ -16,6 +16,8 @@ uniform sampler2D Texture6;
 uniform sampler2D Texture7;
 uniform sampler2D Skybox;
 uniform sampler2D Grass;
+
+uniform vec3 lightColor;
 
 void main()
 {
@@ -42,4 +44,6 @@ void main()
 		color = texture2D(Grass, TexCoord);
 	else
 		color = vec4(vecColor, 1.0f);
+
+	color *= vec4(lightColor, 1.0f);
 }

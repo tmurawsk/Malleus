@@ -13,7 +13,7 @@ using namespace std;
 #define MOVE_SPEED 0.1f
 #define RADIUS 3.0f
 #define SKYBOX 50.0f
-#define SKYMOVE 5.0f
+#define SKYOFFSET 5.0f
 
 const GLuint WIDTH = 1280, HEIGHT = 1024;
 GLfloat posX = 0.0f, posY = 1.0f, posZ = -4.0f;
@@ -22,6 +22,7 @@ GLfloat lookX = posX + RADIUS * cos(glm::radians(lookAngleV)) * cos(glm::radians
 GLfloat lookY = posY + RADIUS * sin(glm::radians(lookAngleV));
 GLfloat lookZ = posZ + RADIUS * cos(glm::radians(lookAngleV)) * sin(glm::radians(lookAngleH));
 GLfloat rotate_speed = 0.1f, translate_speed = 0.000333333333333f;
+GLfloat lightColorR = 1.0f, lightColorG = 1.0f, lightColorB = 1.0f;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -161,6 +162,18 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 				rotate_speed = 0.0f;
 				translate_speed = 0.0f;
 			}
+			break;
+
+		case GLFW_KEY_APOSTROPHE:
+			lightColorR = (lightColorR < 3.0f ? lightColorR + 0.1f : 3.0f);
+			lightColorG = (lightColorG < 3.0f ? lightColorG + 0.1f : 3.0f);
+			lightColorB = (lightColorB < 3.0f ? lightColorB + 0.1f : 3.0f);
+			break;
+
+		case GLFW_KEY_SEMICOLON:
+			lightColorR = (lightColorR > 0.0f ? lightColorR - 0.1f : 0.0f);
+			lightColorG = (lightColorG > 0.0f ? lightColorG - 0.1f : 0.0f);
+			lightColorB = (lightColorB > 0.0f ? lightColorB - 0.1f : 0.0f);
 			break;
 
 		case GLFW_KEY_ESCAPE:
@@ -555,34 +568,34 @@ int main()
 
 		GLfloat skybox[] = {
 			//top
-			SKYBOX, SKYBOX+SKYMOVE, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.0f,		0.0f, -1.0f, 0.0f,	-1.0f,	//187
-			SKYBOX, SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	0.0f, -1.0f, 0.0f,	-1.0f,	//188
-			-SKYBOX, SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.33333f,		0.0f, -1.0f, 0.0f,	-1.0f,	//189
-			-SKYBOX, SKYBOX + SKYMOVE, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.0f,			0.0f, -1.0f, 0.0f,	-1.0f,	//190
+			SKYBOX, SKYBOX+SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.0f,		0.0f, -1.0f, 0.0f,	-1.0f,	//187
+			SKYBOX, SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	0.0f, -1.0f, 0.0f,	-1.0f,	//188
+			-SKYBOX, SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.33333f,		0.0f, -1.0f, 0.0f,	-1.0f,	//189
+			-SKYBOX, SKYBOX + SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.0f,			0.0f, -1.0f, 0.0f,	-1.0f,	//190
 
 			//front
-			SKYBOX, SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	0.0f, 0.0f, -1.0f,	-1.0f,	//191
-			SKYBOX, -SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.66666f,	0.0f, 0.0f, -1.0f,	-1.0f,	//192
-			-SKYBOX, -SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.66666f,		0.0f, 0.0f, -1.0f,	-1.0f,	//193
-			-SKYBOX, SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.33333f,		0.0f, 0.0f, -1.0f,	-1.0f,	//194
+			SKYBOX, SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	0.0f, 0.0f, -1.0f,	-1.0f,	//191
+			SKYBOX, -SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.66666f,	0.0f, 0.0f, -1.0f,	-1.0f,	//192
+			-SKYBOX, -SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.66666f,		0.0f, 0.0f, -1.0f,	-1.0f,	//193
+			-SKYBOX, SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.33333f,		0.0f, 0.0f, -1.0f,	-1.0f,	//194
 
 			//left
-			SKYBOX, SKYBOX + SKYMOVE, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.0f, 0.33333f,		-1.0f, 0.0f, 0.0f,	-1.0f,	//195
-			SKYBOX, -SKYBOX + SKYMOVE, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.0f, 0.66666f,		-1.0f, 0.0f, 0.0f,	-1.0f,	//196
-			SKYBOX, -SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.66666f,	-1.0f, 0.0f, 0.0f,	-1.0f,	//197
-			SKYBOX, SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	-1.0f, 0.0f, 0.0f,	-1.0f,	//198
+			SKYBOX, SKYBOX + SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.0f, 0.33333f,		-1.0f, 0.0f, 0.0f,	-1.0f,	//195
+			SKYBOX, -SKYBOX + SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.0f, 0.66666f,		-1.0f, 0.0f, 0.0f,	-1.0f,	//196
+			SKYBOX, -SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.66666f,	-1.0f, 0.0f, 0.0f,	-1.0f,	//197
+			SKYBOX, SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	-1.0f, 0.0f, 0.0f,	-1.0f,	//198
 
 			//right
-			-SKYBOX, SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.33333f,		1.0f, 0.0f, 0.0f,	-1.0f,	//199
-			-SKYBOX, -SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.66666f,		1.0f, 0.0f, 0.0f,	-1.0f,	//200
-			-SKYBOX, -SKYBOX + SKYMOVE, -SKYBOX,0.4f, 0.4f, 0.4f,	0.75f, 0.66666f,	1.0f, 0.0f, 0.0f,	-1.0f,	//201
-			-SKYBOX, SKYBOX + SKYMOVE, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.75f, 0.33333f,	1.0f, 0.0f, 0.0f,	-1.0f,	//202
+			-SKYBOX, SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.33333f,		1.0f, 0.0f, 0.0f,	-1.0f,	//199
+			-SKYBOX, -SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.66666f,		1.0f, 0.0f, 0.0f,	-1.0f,	//200
+			-SKYBOX, -SKYBOX + SKYOFFSET, -SKYBOX,0.4f, 0.4f, 0.4f,	0.75f, 0.66666f,	1.0f, 0.0f, 0.0f,	-1.0f,	//201
+			-SKYBOX, SKYBOX + SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.75f, 0.33333f,	1.0f, 0.0f, 0.0f,	-1.0f,	//202
 
 			//back
-			-SKYBOX, SKYBOX + SKYMOVE, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.75f, 0.33333f,	0.0f, 0.0f, 1.0f,	-1.0f,	//203
-			-SKYBOX, -SKYBOX + SKYMOVE, -SKYBOX,0.4f, 0.4f, 0.4f,	0.75f, 0.66666f,	0.0f, 0.0f, 1.0f,	-1.0f,	//204
-			SKYBOX, -SKYBOX + SKYMOVE, -SKYBOX,	0.4f, 0.4f, 0.4f,	1.0f, 0.66666f,		0.0f, 0.0f, 1.0f,	-1.0f,	//205
-			SKYBOX, SKYBOX + SKYMOVE, -SKYBOX,	0.4f, 0.4f, 0.4f,	1.0f, 0.33333f,		0.0f, 0.0f, 1.0f,	-1.0f,	//206
+			-SKYBOX, SKYBOX + SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.75f, 0.33333f,	0.0f, 0.0f, 1.0f,	-1.0f,	//203
+			-SKYBOX, -SKYBOX + SKYOFFSET, -SKYBOX,0.4f, 0.4f, 0.4f,	0.75f, 0.66666f,	0.0f, 0.0f, 1.0f,	-1.0f,	//204
+			SKYBOX, -SKYBOX + SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	1.0f, 0.66666f,		0.0f, 0.0f, 1.0f,	-1.0f,	//205
+			SKYBOX, SKYBOX + SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	1.0f, 0.33333f,		0.0f, 0.0f, 1.0f,	-1.0f,	//206
 
 			//bottom
 			SKYBOX/2, 0.0f, SKYBOX/2,		0.4f, 0.4f, 0.4f,	0.0f, 0.0f,		0.0f, 1.0f, 0.0f,	-2.0f,	//207
@@ -826,6 +839,7 @@ int main()
 		GLuint skyboxTex = LoadMipmapTexture(GL_TEXTURE8, "skybox.png");
 		GLuint grass = LoadMipmapTexture(GL_TEXTURE9, "grass.png");
 
+
 		bool goingUp = true, goingToRight = true;
 		// main event loop
 		while (!glfwWindowShouldClose(window))
@@ -836,6 +850,7 @@ int main()
 			// Clear the colorbuffer
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //czyszczenie bufora koloru i bufora glebokosci
+
 
 			// Bind Textures using texture units
 			glActiveTexture(GL_TEXTURE0);
@@ -869,6 +884,7 @@ int main()
 			glBindTexture(GL_TEXTURE_2D, grass);
 			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Grass"), 9);
 
+			glUniform3f(glGetUniformLocation(theProgram.get_programID(), "lightColor"), lightColorR, lightColorG, lightColorB);
 
 			glm::mat4 rotate;
 			static GLfloat rot_angle = 0.0f;
@@ -937,6 +953,7 @@ int main()
 
 			// Draw our first triangle
 			theProgram.Use();
+			//theProgram.setVec3("fkokf", 1.0f, 1.0f, 1.0f);
 
 			glBindVertexArray(VAO);
 			glDrawElements(GL_TRIANGLES, _countof(indices), GL_UNSIGNED_INT, 0);

@@ -8,7 +8,7 @@ layout (location = 4) in float texID;
 
 out vec3 vecColor;
 out vec2 TexCoord;
-smooth out vec3 vecNormal;
+out vec3 vecNormal;
 out float TexID;
 
 uniform mat4 rotate;		//macierz obrotu
