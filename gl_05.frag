@@ -12,6 +12,8 @@ uniform sampler2D Texture2;
 uniform sampler2D Texture3;
 uniform sampler2D Texture4;
 uniform sampler2D Texture5;
+uniform sampler2D Texture6;
+uniform sampler2D Texture7;
 
 void main()
 {
@@ -22,10 +24,16 @@ void main()
 		color = texture2D(Texture1, TexCoord);
 	else if(TexID == 3.0f)
 		color = texture2D(Texture2, TexCoord);
+	else if(TexID == 4.0f)
+		color = texture2D(Texture3, TexCoord);
 	else if(TexID == 5.0f)
 		color = texture2D(Texture4, TexCoord);
 	else if(TexID == 6.0f)
 		color = texture2D(Texture5, TexCoord);
+	else if(TexID == 7.0f)
+		color = texture2D(Texture6, TexCoord);
+	else if(TexID == 8.0f)
+		color = texture2D(Texture7, TexCoord);
 	else
 		color = vec4(vecColor, 1.0f);
 }

@@ -322,21 +322,21 @@ int main()
 			2.0f, 0.0f, -1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 1.9f,		1.0f, 0.0f, 0.0f,	1.0f,	//18
 			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 2.0f,		1.0f, 0.0f, 0.0f,	1.0f,	//19
 
-			-1.2f, 1.0f, -0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	0.0f,	//20
-			-0.8f, 0.2f, -0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	0.0f,	//21
-			-1.6f, 0.2f, -0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	0.0f,	//22
+			-1.2f, 1.0f, -0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 2.0f,		0.0f, 0.0f, -1.0f,	8.0f,	//20
+			-0.8f, 0.2f, -0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	8.0f,	//21
+			-1.6f, 0.2f, -0.8f,		0.0f, 0.55f, 0.0f,	0.0f, 0.0f,		0.0f, 0.0f, -1.0f,	8.0f,	//22
 
-			-1.2f, 1.0f, -0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f,	//23
-			-0.8f, 0.2f, -0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f,	//24
-			-1.6f, 0.2f, -0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f,	//25
+			-1.2f, 1.0f, -0.4f,		0.0f, 0.55f, 0.0f,	0.0f, 2.0f,		0.0f, 0.0f, 1.0f,	8.0f,	//23
+			-0.8f, 0.2f, -0.4f,		0.0f, 0.55f, 0.0f,	0.0f, 0.0f,		0.0f, 0.0f, 1.0f,	8.0f,	//24
+			-1.6f, 0.2f, -0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	8.0f,	//25
 
-			-1.2f, 1.0f, 0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	0.0f,	//26
-			-0.8f, 0.2f, 0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	0.0f,	//27
-			-1.6f, 0.2f, 0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	0.0f,	//28
+			-1.2f, 1.0f, 0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 2.0f,		0.0f, 0.0f, -1.0f,	8.0f,	//26
+			-0.8f, 0.2f, 0.4f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	8.0f,	//27
+			-1.6f, 0.2f, 0.4f,		0.0f, 0.55f, 0.0f,	0.0f, 0.0f,		0.0f, 0.0f, -1.0f,	8.0f,	//28
 
-			-1.2f, 1.0f, 0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f,	//29
-			-0.8f, 0.2f, 0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f,	//30
-			-1.6f, 0.2f, 0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f,	//31
+			-1.2f, 1.0f, 0.8f,		0.0f, 0.55f, 0.0f,	0.0f, 2.0f,		0.0f, 0.0f, 1.0f,	8.0f,	//29
+			-0.8f, 0.2f, 0.8f,		0.0f, 0.55f, 0.0f,	0.0f, 0.0f,		0.0f, 0.0f, 1.0f,	8.0f,	//30
+			-1.6f, 0.2f, 0.8f,		0.0f, 0.55f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	8.0f,	//31
 
 			1.696f, 1.24f, 0.296f,	0.3f, 0.3f, 0.3f,	0.0f, 1.0f,		0.0f, 1.0f, 0.0f,	2.0f,	//32
 			1.696f, 1.24f, -0.296f,	0.3f, 0.3f, 0.3f,	0.0f, 0.0f,		0.0f, 1.0f, 0.0f,	2.0f,	//33
@@ -455,6 +455,7 @@ int main()
 		vertices[pos + 11] = 5.0f;
 
 		angle = 0.0f;
+		float texX = 0.0f;
 		for (int i = 114 * 12; i < 130 * 12; i += 2 * 12) //114-129 (poprzeczka)
 		{
 			vertices[i] = -1.2f - 0.059f * sin(glm::radians(angle));	//x
@@ -463,12 +464,12 @@ int main()
 			vertices[i + 3] = 0.7f;	//r
 			vertices[i + 4] = 0.7f;	//g
 			vertices[i + 5] = 0.7f;	//b
-			vertices[i + 6] = 1.0f;	//tx
+			vertices[i + 6] = texX;	//tx
 			vertices[i + 7] = 0.0f;	//ty
 			vertices[i + 8] = sin(glm::radians(angle));	//nx
 			vertices[i + 9] = cos(glm::radians(angle));	//ny
 			vertices[i + 10] = 0.0f;//nz
-			vertices[i + 11] = 0.0f;
+			vertices[i + 11] = 7.0f;
 
 			vertices[i + 12] = -1.2f - 0.059f * sin(glm::radians(angle));	//x
 			vertices[i + 13] = 0.8f + 0.059f * cos(glm::radians(angle));	//y
@@ -476,14 +477,15 @@ int main()
 			vertices[i + 15] = 0.7f;	//r
 			vertices[i + 16] = 0.7f;	//g
 			vertices[i + 17] = 0.7f;	//b
-			vertices[i + 18] = 1.0f;	//tx
-			vertices[i + 19] = 0.0f;	//ty
+			vertices[i + 18] = texX;	//tx
+			vertices[i + 19] = 2.0f;	//ty
 			vertices[i + 20] = sin(glm::radians(angle));	//nx
 			vertices[i + 21] = cos(glm::radians(angle));	//ny
 			vertices[i + 22] = 0.0f;//nz
-			vertices[i + 23] = 0.0f;
+			vertices[i + 23] = 7.0f;
 
 			angle += 45.0f;
+			texX += 0.125f;
 		}
 
 		pos = 130 * 12; //130
@@ -493,15 +495,16 @@ int main()
 		vertices[pos + 3] = 0.4f;	//r
 		vertices[pos + 4] = 0.2f;	//g
 		vertices[pos + 5] = 0.0f;	//b
-		vertices[pos + 6] = 1.0f;	//tx
-		vertices[pos + 7] = 0.0f;	//ty
+		vertices[pos + 6] = 0.3f;	//tx
+		vertices[pos + 7] = 0.3f;	//ty
 		vertices[pos + 8] = 1.0f;	//nx
 		vertices[pos + 9] = 0.0f;	//ny
 		vertices[pos + 10] = 0.0f;	//nz
-		vertices[pos + 11] = 0.0f;
+		vertices[pos + 11] = 4.0f;
 
 		angle = 0.0f;
-		for (int i = 131 * 12; i < 179 * 12; i += 2 * 12)
+		texX = 0.0f;
+		for (int i = 131 * 12; i < 179 * 12; i += 2 * 12) //131-178 (rekojesc)
 		{
 			vertices[i] = -1.695f;	//x
 			vertices[i + 1] = 0.8f + 0.148f * cos(glm::radians(angle));	//y
@@ -509,12 +512,12 @@ int main()
 			vertices[i + 3] = 0.4f;	//r
 			vertices[i + 4] = 0.2f;	//g
 			vertices[i + 5] = 0.0f;	//b
-			vertices[i + 6] = 1.0f;	//tx
+			vertices[i + 6] = texX;	//tx
 			vertices[i + 7] = 0.0f;	//ty
 			vertices[i + 8] = 0.0f;	//nx
 			vertices[i + 9] = cos(glm::radians(angle));	//ny
 			vertices[i + 10] = sin(glm::radians(angle));	//nz
-			vertices[i + 11] = 0.0f;
+			vertices[i + 11] = 4.0f;
 
 			vertices[i + 12] = 1.104f;	//x
 			vertices[i + 13] = 0.8f + 0.148f * cos(glm::radians(angle));	//y
@@ -522,17 +525,18 @@ int main()
 			vertices[i + 15] = 0.4f;	//r
 			vertices[i + 16] = 0.2f;	//g
 			vertices[i + 17] = 0.0f;	//b
-			vertices[i + 18] = 1.0f;	//tx
-			vertices[i + 19] = 0.0f;	//ty
+			vertices[i + 18] = texX;	//tx
+			vertices[i + 19] = 1.0f;	//ty
 			vertices[i + 20] = 0.0f;	//nx
 			vertices[i + 21] = cos(glm::radians(angle));	//ny
 			vertices[i + 22] = sin(glm::radians(angle));	//nz
-			vertices[i + 23] = 0.0f;
+			vertices[i + 23] = 4.0f;
 
 			angle += 20.0f;
+			texX += 1.0f / 18.0f;
 		}
 
-		GLfloat formSides[] = {
+		GLfloat formSides[] = { //sciany formy (179-168)
 			1.743f, 0.305f, -0.344f,	1.0f, 0.5f, 0.0f,	0.0f, 1.0f,		0.0f, 0.0f, -1.0f,	6.0f,	//179
 			1.743f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	0.0f, 0.835f,		0.0f, 0.0f, -1.0f,	6.0f,	//180
 			1.07f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	1.0f, 0.835f,		0.0f, 0.0f, -1.0f,	6.0f,	//181
@@ -755,6 +759,8 @@ int main()
 		GLuint texture3 = LoadMipmapTexture(GL_TEXTURE3, "wood.png");
 		GLuint texture4 = LoadMipmapTexture(GL_TEXTURE4, "mold.png");
 		GLuint texture5 = LoadMipmapTexture(GL_TEXTURE5, "form.png");
+		GLuint texture6 = LoadMipmapTexture(GL_TEXTURE6, "bar.png");
+		GLuint texture7 = LoadMipmapTexture(GL_TEXTURE7, "triangle.png");
 
 		bool goingUp = true, goingToRight = true;
 		// main event loop
@@ -786,6 +792,12 @@ int main()
 			glActiveTexture(GL_TEXTURE5);
 			glBindTexture(GL_TEXTURE_2D, texture5);
 			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture5"), 5);
+			glActiveTexture(GL_TEXTURE6);
+			glBindTexture(GL_TEXTURE_2D, texture6);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture6"), 6);
+			glActiveTexture(GL_TEXTURE7);
+			glBindTexture(GL_TEXTURE_2D, texture7);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture7"), 7);
 
 
 			glm::mat4 rotate;
