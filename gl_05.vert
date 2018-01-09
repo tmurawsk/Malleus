@@ -22,7 +22,7 @@ void main()
 	if((gl_VertexID >= 114 && gl_VertexID <= 178) || (gl_VertexID >= 32 && gl_VertexID <= 55))		//mlot
 		gl_Position = projection * view * rotate * vec4(position, 1.0f);
 
-	else if((gl_VertexID >= 56 && gl_VertexID <= 113) || gl_VertexID >= 179)
+	else if((gl_VertexID >= 56 && gl_VertexID <= 113) || (gl_VertexID >= 179 && gl_VertexID <= 186))
 		gl_Position = projection * view * translate * vec4(position, 1.0f);				//odlewy
 	
 	else
