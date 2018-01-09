@@ -13,6 +13,7 @@ using namespace std;
 #define MOVE_SPEED 0.1f
 #define RADIUS 3.0f
 #define SKYBOX 50.0f
+#define SKYMOVE 5.0f
 
 const GLuint WIDTH = 1280, HEIGHT = 1024;
 GLfloat posX = 0.0f, posY = 1.0f, posZ = -4.0f;
@@ -296,7 +297,7 @@ int main()
 			20, 22, 23
 		};*/
 
-		GLfloat vertices[207*12] = {
+		GLfloat vertices[211*12] = {
 			// coordinates			// color			// texture		// normals
 			2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 2.0f,		0.0f, 1.0f, 0.0f,	1.0f,	//0
 			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 0.0f,		0.0f, 1.0f, 0.0f,	1.0f,	//1
@@ -553,33 +554,47 @@ int main()
 			vertices[i] = formSides[i - 179*12];
 
 		GLfloat skybox[] = {
-			SKYBOX, SKYBOX, SKYBOX,		0.4f, 0.4f, 0.4f,	0.25f, 0.66666f,	0.0f, -1.0f, 0.0f,	-1.0f,	//187
-			SKYBOX, SKYBOX, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	0.0f, -1.0f, 0.0f,	-1.0f,	//188
-			-SKYBOX, SKYBOX, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.33333f,		0.0f, -1.0f, 0.0f,	-1.0f,	//189
-			-SKYBOX, SKYBOX, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.66666f,		0.0f, -1.0f, 0.0f,	-1.0f,	//190
+			//top
+			SKYBOX, SKYBOX+SKYMOVE, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.0f,		0.0f, -1.0f, 0.0f,	-1.0f,	//187
+			SKYBOX, SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	0.0f, -1.0f, 0.0f,	-1.0f,	//188
+			-SKYBOX, SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.33333f,		0.0f, -1.0f, 0.0f,	-1.0f,	//189
+			-SKYBOX, SKYBOX + SKYMOVE, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.0f,			0.0f, -1.0f, 0.0f,	-1.0f,	//190
 
-			SKYBOX, SKYBOX, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	0.0f, 0.0f, 1.0f,	-1.0f,	//191
-			SKYBOX, -SKYBOX, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.0f,		0.0f, 0.0f, 1.0f,	-1.0f,	//192
-			-SKYBOX, -SKYBOX, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.0f,			0.0f,0.0f, 1.0f,	-1.0f,	//193
-			-SKYBOX, SKYBOX, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.33333f,		0.0f, 0.0f, 1.0f,	-1.0f,	//194
+			//front
+			SKYBOX, SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	0.0f, 0.0f, -1.0f,	-1.0f,	//191
+			SKYBOX, -SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.66666f,	0.0f, 0.0f, -1.0f,	-1.0f,	//192
+			-SKYBOX, -SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.66666f,		0.0f, 0.0f, -1.0f,	-1.0f,	//193
+			-SKYBOX, SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.33333f,		0.0f, 0.0f, -1.0f,	-1.0f,	//194
 
-			-SKYBOX, SKYBOX, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.33333f,		-1.0f, 0.0f, 0.0f,	-1.0f,	//195
-			-SKYBOX, -SKYBOX, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.75f, 0.33333f,	-1.0f, 0.0f, 0.0f,	-1.0f,	//196
-			-SKYBOX, -SKYBOX, SKYBOX,	0.4f, 0.4f, 0.4f,	0.75f, 0.66666f,	-1.0f, 0.0f, 0.0f,	-1.0f,	//197
-			-SKYBOX, SKYBOX, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.66666f,		-1.0f, 0.0f, 0.0f,	-1.0f,	//198
+			//left
+			SKYBOX, SKYBOX + SKYMOVE, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.0f, 0.33333f,		-1.0f, 0.0f, 0.0f,	-1.0f,	//195
+			SKYBOX, -SKYBOX + SKYMOVE, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.0f, 0.66666f,		-1.0f, 0.0f, 0.0f,	-1.0f,	//196
+			SKYBOX, -SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.66666f,	-1.0f, 0.0f, 0.0f,	-1.0f,	//197
+			SKYBOX, SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	-1.0f, 0.0f, 0.0f,	-1.0f,	//198
 
-			-SKYBOX, -SKYBOX, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.75f, 0.33333f,	0.0f, 1.0f, 0.0f,	-1.0f,	//199
-			-SKYBOX, -SKYBOX, SKYBOX,	0.4f, 0.4f, 0.4f,	0.75f, 0.66666f,	0.0f, 1.0f, 0.0f,	-1.0f,	//200
-			SKYBOX, -SKYBOX, -SKYBOX,	0.4f, 0.4f, 0.4f,	1.0f, 0.33333f,		0.0f, 1.0f, 0.0f,	-1.0f,	//201
-			SKYBOX, -SKYBOX, SKYBOX,	0.4f, 0.4f, 0.4f,	1.0f, 0.66666f,		0.0f, 1.0f, 0.0f,	-1.0f,	//202
+			//right
+			-SKYBOX, SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.33333f,		1.0f, 0.0f, 0.0f,	-1.0f,	//199
+			-SKYBOX, -SKYBOX + SKYMOVE, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.66666f,		1.0f, 0.0f, 0.0f,	-1.0f,	//200
+			-SKYBOX, -SKYBOX + SKYMOVE, -SKYBOX,0.4f, 0.4f, 0.4f,	0.75f, 0.66666f,	1.0f, 0.0f, 0.0f,	-1.0f,	//201
+			-SKYBOX, SKYBOX + SKYMOVE, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.75f, 0.33333f,	1.0f, 0.0f, 0.0f,	-1.0f,	//202
 
-			SKYBOX, SKYBOX, SKYBOX,		0.4f, 0.4f, 0.4f,	0.25f, 0.66666f,	1.0f, 0.0f, 0.0f,	-1.0f,	//203
-			SKYBOX, -SKYBOX, SKYBOX,	0.4f, 0.4f, 0.4f,	0.0f, 0.66666f,		1.0f, 0.0f, 0.0f,	-1.0f,	//204
-			SKYBOX, -SKYBOX, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.0f, 0.33333f,		1.0f, 0.0f, 0.0f,	-1.0f,	//205
-			SKYBOX, SKYBOX, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	1.0f, 0.0f, 0.0f,	-1.0f	//206
+			//back
+			-SKYBOX, SKYBOX + SKYMOVE, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.75f, 0.33333f,	0.0f, 0.0f, 1.0f,	-1.0f,	//203
+			-SKYBOX, -SKYBOX + SKYMOVE, -SKYBOX,0.4f, 0.4f, 0.4f,	0.75f, 0.66666f,	0.0f, 0.0f, 1.0f,	-1.0f,	//204
+			SKYBOX, -SKYBOX + SKYMOVE, -SKYBOX,	0.4f, 0.4f, 0.4f,	1.0f, 0.66666f,		0.0f, 0.0f, 1.0f,	-1.0f,	//205
+			SKYBOX, SKYBOX + SKYMOVE, -SKYBOX,	0.4f, 0.4f, 0.4f,	1.0f, 0.33333f,		0.0f, 0.0f, 1.0f,	-1.0f,	//206
+
+			//bottom
+			SKYBOX/2, 0.0f, SKYBOX/2,		0.4f, 0.4f, 0.4f,	0.0f, 0.0f,		0.0f, 1.0f, 0.0f,	-2.0f,	//207
+			SKYBOX/2, 0.0f, -SKYBOX/2,		0.4f, 0.4f, 0.4f,	0.0f, 5.0f,		0.0f, 1.0f, 0.0f,	-2.0f,	//208
+			-SKYBOX/2, 0.0f, -SKYBOX/2,		0.4f, 0.4f, 0.4f,	5.0f, 5.0f,		0.0f, 1.0f, 0.0f,	-2.0f,	//209
+			-SKYBOX/2, 0.0f, SKYBOX/2,		0.4f, 0.4f, 0.4f,	5.0f, 0.0f,		0.0f, 1.0f, 0.0f,	-2.0f	//210
 		};
 
-		GLuint indices[(44+24+48+16+54+10)*3] = {
+		for (int i = 0; i < 24 * 12; i++)
+			vertices[187 * 12 + i] = skybox[i];
+
+		GLuint indices[(44+24+48+16+54+12)*3] = {
 			0, 1, 2,
 			0, 2, 3,	//Podstawa-top
 			4, 5, 6,
@@ -737,18 +752,20 @@ int main()
 		//skybox:
 		GLuint skyboxIndices[] = {
 			187, 188, 189,
-			187, 189, 190,	//tyl
+			187, 189, 190,
 			191, 192, 193,
-			191, 193, 194,	//gora
+			191, 193, 194,
 			195, 196, 197,
-			195, 197, 198,	//prawy
+			195, 197, 198,
 			199, 200, 201,
-			200, 201, 202,	//przod
+			199, 201, 202,
 			203, 204, 205,
-			203, 205, 206 //lewy?
+			203, 205, 206,
+			207, 208, 209,
+			207, 209, 210
 		};
 
-		for (int i = 0; i < 30; i++)
+		for (int i = 0; i < 36; i++)
 			indices[i + (44 + 24 + 48 + 16 + 54) * 3] = skyboxIndices[i];
 
 		GLuint VBO, EBO, VAO;
@@ -806,7 +823,8 @@ int main()
 		GLuint texture5 = LoadMipmapTexture(GL_TEXTURE5, "form.png");
 		GLuint texture6 = LoadMipmapTexture(GL_TEXTURE6, "bar.png");
 		GLuint texture7 = LoadMipmapTexture(GL_TEXTURE7, "triangle.png");
-		GLuint texture8 = LoadMipmapTexture(GL_TEXTURE8, "skybox.png");
+		GLuint skyboxTex = LoadMipmapTexture(GL_TEXTURE8, "skybox.png");
+		GLuint grass = LoadMipmapTexture(GL_TEXTURE9, "grass.png");
 
 		bool goingUp = true, goingToRight = true;
 		// main event loop
@@ -845,8 +863,11 @@ int main()
 			glBindTexture(GL_TEXTURE_2D, texture7);
 			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture7"), 7);
 			glActiveTexture(GL_TEXTURE8);
-			glBindTexture(GL_TEXTURE_2D, texture8);
-			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture8"), 8);
+			glBindTexture(GL_TEXTURE_2D, skyboxTex);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Skybox"), 8);
+			glActiveTexture(GL_TEXTURE9);
+			glBindTexture(GL_TEXTURE_2D, grass);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Grass"), 9);
 
 
 			glm::mat4 rotate;

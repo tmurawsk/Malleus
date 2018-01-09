@@ -14,7 +14,8 @@ uniform sampler2D Texture4;
 uniform sampler2D Texture5;
 uniform sampler2D Texture6;
 uniform sampler2D Texture7;
-uniform sampler2D Texture8;
+uniform sampler2D Skybox;
+uniform sampler2D Grass;
 
 void main()
 {
@@ -36,7 +37,9 @@ void main()
 	else if(TexID == 8.0f)
 		color = texture2D(Texture7, TexCoord);
 	else if(TexID == -1.0f)
-		color = texture2D(Texture8, TexCoord);
+		color = texture2D(Skybox, TexCoord);
+	else if(TexID == -2.0f)
+		color = texture2D(Grass, TexCoord);
 	else
 		color = vec4(vecColor, 1.0f);
 }
