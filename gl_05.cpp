@@ -14,6 +14,9 @@ using namespace std;
 #define RADIUS 3.0f
 #define SKYBOX 50.0f
 #define SKYOFFSET 5.0f
+#define VERTICES 211
+#define INDICES 198
+#define ATTRIBS 12
 
 const GLuint WIDTH = 1280, HEIGHT = 1024;
 GLfloat posX = 0.0f, posY = 1.0f, posZ = -4.0f;
@@ -22,12 +25,10 @@ GLfloat lookX = posX + RADIUS * cos(glm::radians(lookAngleV)) * cos(glm::radians
 GLfloat lookY = posY + RADIUS * sin(glm::radians(lookAngleV));
 GLfloat lookZ = posZ + RADIUS * cos(glm::radians(lookAngleV)) * sin(glm::radians(lookAngleH));
 GLfloat rotate_speed = 0.1f, translate_speed = 0.000333333333333f;
-GLfloat lightColorR = 1.0f, lightColorG = 1.0f, lightColorB = 1.0f;
+GLfloat lightAmbient = 1.0f, lightDiffuse = 40.0f;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-	//cout << "key: " << key << endl;
-
 	if (action == GLFW_PRESS || action == GLFW_REPEAT)
 	{
 		GLfloat trans;
@@ -144,7 +145,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			break;
 
 		case GLFW_KEY_EQUAL:
-			if (rotate_speed < 4.0f)
+			if (rotate_speed + 0.1f < 4.0f)
 			{
 				rotate_speed += 0.1f;
 				translate_speed += 0.000333333333333f;
@@ -164,16 +165,31 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			}
 			break;
 
+		case GLFW_KEY_ENTER:
+			posX = 0.0f;
+			posY = 1.0f;
+			posZ = -4.0f;
+			lookAngleH = 90.0f;
+			lookAngleV = 0.0f;
+			lookX = posX + RADIUS * cos(glm::radians(lookAngleV)) * cos(glm::radians(lookAngleH));
+			lookY = posY + RADIUS * sin(glm::radians(lookAngleV));
+			lookZ = posZ + RADIUS * cos(glm::radians(lookAngleV)) * sin(glm::radians(lookAngleH));
+			break;
+
 		case GLFW_KEY_APOSTROPHE:
-			lightColorR = (lightColorR < 3.0f ? lightColorR + 0.1f : 3.0f);
-			lightColorG = (lightColorG < 3.0f ? lightColorG + 0.1f : 3.0f);
-			lightColorB = (lightColorB < 3.0f ? lightColorB + 0.1f : 3.0f);
+			lightAmbient = (lightAmbient + 0.1f < 2.0f ? lightAmbient + 0.1f : 2.0f);
 			break;
 
 		case GLFW_KEY_SEMICOLON:
-			lightColorR = (lightColorR > 0.0f ? lightColorR - 0.1f : 0.0f);
-			lightColorG = (lightColorG > 0.0f ? lightColorG - 0.1f : 0.0f);
-			lightColorB = (lightColorB > 0.0f ? lightColorB - 0.1f : 0.0f);
+			lightAmbient = (lightAmbient - 0.1f > 0.0f ? lightAmbient - 0.1f : 0.0f);
+			break;
+
+		case GLFW_KEY_PERIOD:
+			lightDiffuse = (lightDiffuse + 1.0f < 100.0f ? lightDiffuse + 1.0f : 100.0f);
+			break;
+
+		case GLFW_KEY_COMMA:
+			lightDiffuse = (lightDiffuse - 1.0f > 0.0f ? lightDiffuse - 1.0f : 0.0f);
 			break;
 
 		case GLFW_KEY_ESCAPE:
@@ -183,8 +199,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		default:
 			break;
 		}
-		if (move)
-			cout << "x: " << posX << " y: " << posY << " z: " << posZ << endl;
 	}
 }
 
@@ -220,12 +234,6 @@ ostream& operator<<(ostream& os, const glm::mat4& mx)
 
 int main()
 {
-	{
-		glm::mat4 trans;
-		cout << trans << endl;
-		trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0)); //drugi parametr - kat w radianach, trzeci - os obrotu przechodzacej przez srodek uklady wsp. (tutaj - obrot o 90 stopnia wokol osi Z)
-		cout << trans << endl;
-	}
 	if (glfwInit() != GL_TRUE)
 	{
 		cout << "GLFW initialization failed" << endl;
@@ -233,13 +241,14 @@ int main()
 	}
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+	
 	try
 	{
-		GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "GKOM - OpenGL 05", nullptr, nullptr);
+		GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Malleus", nullptr, nullptr);// glfwGetPrimaryMonitor(), nullptr);
 		if (window == nullptr)
 			throw exception("GLFW window not created");
+
 		glfwMakeContextCurrent(window);
 		glfwSetKeyCallback(window, key_callback);
 
@@ -261,61 +270,12 @@ int main()
 		// Build, compile and link shader program
 		ShaderProgram theProgram("gl_05.vert", "gl_05.frag");
 
-		// Set up vertex data
-		/*GLfloat vertices[] = { //powinny byc tu tez trzy kolejne wartosci do kazdego wierzcholka - jego normalna, dzieki ktorej mozna okreslic oswietlenie
-			// coordinates			// color			// texture		// normals
-			0.25f, 0.5f, -0.5f,		1.0f, 0.0f, 0.0f,	1.0f, 0.0f,		0.0f, 0.0f, -1.0f,	//0
-			-0.75f, 0.5f, -0.5f,	0.0f, 1.0f, 0.0f,	0.0f, 0.0f,		0.0f, 0.0f, -1.0f,	//1
-			- 0.25f, -0.5f, -0.5f,	0.0f, 0.0f, 1.0f,	0.0f, 1.0f,		0.0f, 0.0f, -1.0f,	//2
-			0.75f, -0.5f, -0.5f,	1.0f, 0.0f, 1.0f,	1.0f, 1.0f,		0.0f, 0.0f, -1.0f,	//3
-
-			-0.25f, -0.5f, 0.5f,	0.0f, 0.0f, 1.0f,	0.0f, 0.0f,		0.0f, 0.0f, 1.0f,	//4
-			-0.75f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	0.0f, 1.0f,		0.0f, 0.0f, 1.0f,	//5
-			0.25f, 0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	1.0f, 1.0f,		0.0f, 0.0f, 1.0f,	//6
-			0.75f, -0.5f, 0.5f,		1.0f, 0.0f, 1.0f,	1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	//7
-
-			-0.25f, -0.5f, -0.5f,	0.0f, 0.0f, 1.0f,	0.0f, 0.0f,		0.0f, -1.0f, 0.0f,	//8
-			-0.25f, -0.5f, 0.5f,	0.0f, 0.0f, 1.0f,	0.0f, 1.0f,		0.0f, -1.0f, 0.0f,	//9
-			0.75f, -0.5f, 0.5f,		1.0f, 0.0f, 1.0f,	1.0f, 1.0f,		0.0f, -1.0f, 0.0f,	//10
-			0.75f, -0.5f, -0.5f,	1.0f, 0.0f, 1.0f,	1.0f, 0.0f,		0.0f, -1.0f, 0.0f,	//11
-
-			-0.75f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	0.0f, 0.0f,		0.0f, 1.0f, 0.0f,	//12
-			-0.75f, 0.5f, -0.5f,	0.0f, 1.0f, 0.0f,	0.0f, 1.0f,		0.0f, 1.0f, 0.0f,	//13
-			0.25f, 0.5f, -0.5f,		1.0f, 0.0f, 0.0f,	1.0f, 1.0f,		0.0f, 1.0f, 0.0f,	//14
-			0.25f, 0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	1.0f, 0.0f,		0.0f, 1.0f, 0.0f,	//15
-
-			-0.25f, -0.5f, -0.5f,	0.0f, 0.0f, 1.0f,	0.0f, 0.0f,		-0.8944f, -0.4472f, 0.0f,	//16
-			-0.75f, 0.5f, -0.5f,	0.0f, 1.0f, 0.0f,	0.0f, 1.0f,		-0.8944f, -0.4472f, 0.0f,	//17
-			-0.25f, -0.5f, 0.5f,	0.0f, 0.0f, 1.0f,	1.0f, 0.0f,		-0.8944f, -0.4472f, 0.0f,	//18
-			-0.75f, 0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	1.0f, 1.0f,		-0.8944f, -0.4472f, 0.0f,	//19
-
-			0.75f, -0.5f, -0.5f,	1.0f, 0.0f, 1.0f,	1.0f, 0.0f,		0.8944f, 0.4472f, 0.0f,	//20
-			0.75f, -0.5f, 0.5f,		1.0f, 0.0f, 1.0f,	0.0f, 0.0f,		0.8944f, 0.4472f, 0.0f,	//21
-			0.25f, 0.5f, 0.5f,		1.0f, 0.0f, 0.0f,	0.0f, 1.0f,		0.8944f, 0.4472f, 0.0f,	//22
-			0.25f, 0.5f, -0.5f,		1.0f, 0.0f, 0.0f,	1.0f, 1.0f,		0.8944f, 0.4472f, 0.0f	//23
-		};
-
-		GLuint indices[] = {
-			0, 1, 2,
-			0, 2, 3,
-			4, 5, 6,
-			4, 6, 7,
-			8, 9, 10,
-			8, 10, 11,
-			12, 13, 14,
-			12, 14, 15,
-			16, 17, 18,
-			18, 17, 19,
-			20, 21, 22,
-			20, 22, 23
-		};*/
-
-		GLfloat vertices[211*12] = {
-			// coordinates			// color			// texture		// normals
-			2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 2.0f,		0.0f, 1.0f, 0.0f,	1.0f,	//0
-			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 0.0f,		0.0f, 1.0f, 0.0f,	1.0f,	//1
-			-2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 0.0f,		0.0f, 1.0f, 0.0f,	1.0f,	//2
-			-2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 2.0f,		0.0f, 1.0f, 0.0f,	1.0f,	//3
+		GLfloat vertices[VERTICES * ATTRIBS] = {
+			// coordinates			// color			// texture		// normals			// textureID
+			2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 2.0f,		1.0f, 1.0f, 1.0f,	1.0f,	//0
+			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 0.0f,		1.0f, 1.0f, 1.0f,	1.0f,	//1
+			-2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 0.0f,		1.0f, 1.0f, 1.0f,	1.0f,	//2
+			-2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 2.0f,		1.0f, 1.0f, 1.0f,	1.0f,	//3
 
 			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 2.0f,		0.0f, 0.0f, -1.0f,	1.0f,	//4
 			2.0f, 0.0f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 1.8f,		0.0f, 0.0f, -1.0f,	1.0f,	//5
@@ -383,21 +343,22 @@ int main()
 			1.696f, 0.36f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	3.0f,	//54
 			1.696f, 1.24f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 1.0f,		1.0f, 0.0f, 0.0f,	3.0f,	//55
 
-			1.743f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	0.0f, 2.01f,		1.0f, 0.0f, 0.0f,	6.0f,	//56
-			1.743f, 0.2f, 0.93f,	1.0f, 0.5f, 0.0f,	0.165f, 2.01f,		1.0f, 0.0f, 0.0f,	6.0f,	//57
-			1.743f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	0.165f, 0.0f,		1.0f, 0.0f, 0.0f,	6.0f,	//58
+			1.743f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	0.0f, 2.01f,	1.0f, 0.0f, 0.0f,	6.0f,	//56
+			1.743f, 0.2f, 0.93f,	1.0f, 0.5f, 0.0f,	0.165f, 2.01f,	1.0f, 0.0f, 0.0f,	6.0f,	//57
+			1.743f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	0.165f, 0.0f,	1.0f, 0.0f, 0.0f,	6.0f,	//58
 			1.743f, 0.305f, -0.344f,1.0f, 0.5f, 0.0f,	0.0f, 0.0f,		1.0f, 0.0f, 0.0f,	6.0f,	//59
 
 			1.07f, 0.305f, -0.344f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f,	6.0f,	//60
-			1.07f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	0.835f, 0.0f,		-1.0f, 0.0f, 0.0f,	6.0f,	//61
-			1.07f, 0.2f, 0.93f,		1.0f, 0.5f, 0.0f,	0.835f, 2.01f,		-1.0f, 0.0f, 0.0f,	6.0f,	//62
-			1.07f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	1.0f, 2.01f,		-1.0f, 0.0f, 0.0f,	6.0f,	//63
+			1.07f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	0.835f, 0.0f,	-1.0f, 0.0f, 0.0f,	6.0f,	//61
+			1.07f, 0.2f, 0.93f,		1.0f, 0.5f, 0.0f,	0.835f, 2.01f,	-1.0f, 0.0f, 0.0f,	6.0f,	//62
+			1.07f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	1.0f, 2.01f,	-1.0f, 0.0f, 0.0f,	6.0f,	//63
 
 			1.4f, 0.369f, 0.6f,		0.4f, 0.0f, 1.0f,	0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	5.0f	//64
 		};
 
+
 		float angle = 0.0f;
-		for (int i = 65 * 12; i < 89 * 12; i += 2*12) //65-88, 90-113 (odlewy)
+		for (int i = 65 * ATTRIBS; i < 89 * ATTRIBS; i += 2 * ATTRIBS) //65-88, 90-113 (odlewy)
 		{
 			vertices[i] = 1.4f - 0.237f * sin(glm::radians(angle));	//x
 			vertices[i + 1] = 0.369f;	//y
@@ -425,7 +386,7 @@ int main()
 			vertices[i + 22] = cos(glm::radians(angle));//nz
 			vertices[i + 23] = 5.0f;
 
-			int pos = i + 25 * 12;
+			int pos = i + 25 * ATTRIBS;
 			vertices[pos] = 1.4f - 0.237f * sin(glm::radians(angle));	//x
 			vertices[pos + 1] = 0.369f;	//y
 			vertices[pos + 2] = 0.237f * cos(glm::radians(angle)); //z
@@ -455,7 +416,7 @@ int main()
 			angle += 30.0f;
 		}
 
-		int pos = 89 * 12; //89
+		int pos = 89 * ATTRIBS; //89
 		vertices[pos] = 1.4f;	//x
 		vertices[pos + 1] = 0.369f;	//y
 		vertices[pos + 2] = 0.0f;	//z
@@ -471,7 +432,7 @@ int main()
 
 		angle = 0.0f;
 		float texX = 0.0f;
-		for (int i = 114 * 12; i < 130 * 12; i += 2 * 12) //114-129 (poprzeczka)
+		for (int i = 114 * ATTRIBS; i < 130 * ATTRIBS; i += 2 * ATTRIBS) //114-129 (poprzeczka)
 		{
 			vertices[i] = -1.2f - 0.059f * sin(glm::radians(angle));	//x
 			vertices[i + 1] = 0.8f + 0.059f * cos(glm::radians(angle));	//y
@@ -503,7 +464,7 @@ int main()
 			texX += 0.125f;
 		}
 
-		pos = 130 * 12; //130
+		pos = 130 * ATTRIBS; //130
 		vertices[pos] = -1.695f;	//x
 		vertices[pos + 1] = 0.8f;	//y
 		vertices[pos + 2] = 0.0f;	//z
@@ -519,7 +480,7 @@ int main()
 
 		angle = 0.0f;
 		texX = 0.0f;
-		for (int i = 131 * 12; i < 179 * 12; i += 2 * 12) //131-178 (rekojesc)
+		for (int i = 131 * ATTRIBS; i < 179 * ATTRIBS; i += 2 * ATTRIBS) //131-178 (rekojesc)
 		{
 			vertices[i] = -1.695f;	//x
 			vertices[i + 1] = 0.8f + 0.148f * cos(glm::radians(angle));	//y
@@ -563,18 +524,18 @@ int main()
 			1.743f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	1.0f, 1.0f,			0.0f, 0.0f, 1.0f,	6.0f	//186
 		};
 
-		for (int i = 179 * 12; i < (179 + 8) * 12; i++)
-			vertices[i] = formSides[i - 179*12];
+		for (int i = 0; i < sizeof(formSides) / sizeof(GLfloat); i++)
+			vertices[179 * ATTRIBS + i] = formSides[i];
 
 		GLfloat skybox[] = {
 			//top
-			SKYBOX, SKYBOX+SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.0f,		0.0f, -1.0f, 0.0f,	-1.0f,	//187
-			SKYBOX, SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	0.0f, -1.0f, 0.0f,	-1.0f,	//188
+			SKYBOX, SKYBOX + SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.0f,		0.0f, -1.0f, 0.0f,	-1.0f,	//187
+			SKYBOX, SKYBOX + SKYOFFSET, SKYBOX,		0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	0.0f, -1.0f, 0.0f,	-1.0f,	//188
 			-SKYBOX, SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.33333f,		0.0f, -1.0f, 0.0f,	-1.0f,	//189
 			-SKYBOX, SKYBOX + SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.0f,			0.0f, -1.0f, 0.0f,	-1.0f,	//190
 
 			//front
-			SKYBOX, SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	0.0f, 0.0f, -1.0f,	-1.0f,	//191
+			SKYBOX, SKYBOX + SKYOFFSET, SKYBOX,		0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	0.0f, 0.0f, -1.0f,	-1.0f,	//191
 			SKYBOX, -SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.66666f,	0.0f, 0.0f, -1.0f,	-1.0f,	//192
 			-SKYBOX, -SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.66666f,		0.0f, 0.0f, -1.0f,	-1.0f,	//193
 			-SKYBOX, SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.33333f,		0.0f, 0.0f, -1.0f,	-1.0f,	//194
@@ -583,17 +544,17 @@ int main()
 			SKYBOX, SKYBOX + SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.0f, 0.33333f,		-1.0f, 0.0f, 0.0f,	-1.0f,	//195
 			SKYBOX, -SKYBOX + SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.0f, 0.66666f,		-1.0f, 0.0f, 0.0f,	-1.0f,	//196
 			SKYBOX, -SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.66666f,	-1.0f, 0.0f, 0.0f,	-1.0f,	//197
-			SKYBOX, SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	-1.0f, 0.0f, 0.0f,	-1.0f,	//198
+			SKYBOX, SKYBOX + SKYOFFSET, SKYBOX,		0.4f, 0.4f, 0.4f,	0.25f, 0.33333f,	-1.0f, 0.0f, 0.0f,	-1.0f,	//198
 
 			//right
 			-SKYBOX, SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.33333f,		1.0f, 0.0f, 0.0f,	-1.0f,	//199
 			-SKYBOX, -SKYBOX + SKYOFFSET, SKYBOX,	0.4f, 0.4f, 0.4f,	0.5f, 0.66666f,		1.0f, 0.0f, 0.0f,	-1.0f,	//200
-			-SKYBOX, -SKYBOX + SKYOFFSET, -SKYBOX,0.4f, 0.4f, 0.4f,	0.75f, 0.66666f,	1.0f, 0.0f, 0.0f,	-1.0f,	//201
+			-SKYBOX, -SKYBOX + SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.75f, 0.66666f,	1.0f, 0.0f, 0.0f,	-1.0f,	//201
 			-SKYBOX, SKYBOX + SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.75f, 0.33333f,	1.0f, 0.0f, 0.0f,	-1.0f,	//202
 
 			//back
 			-SKYBOX, SKYBOX + SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.75f, 0.33333f,	0.0f, 0.0f, 1.0f,	-1.0f,	//203
-			-SKYBOX, -SKYBOX + SKYOFFSET, -SKYBOX,0.4f, 0.4f, 0.4f,	0.75f, 0.66666f,	0.0f, 0.0f, 1.0f,	-1.0f,	//204
+			-SKYBOX, -SKYBOX + SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	0.75f, 0.66666f,	0.0f, 0.0f, 1.0f,	-1.0f,	//204
 			SKYBOX, -SKYBOX + SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	1.0f, 0.66666f,		0.0f, 0.0f, 1.0f,	-1.0f,	//205
 			SKYBOX, SKYBOX + SKYOFFSET, -SKYBOX,	0.4f, 0.4f, 0.4f,	1.0f, 0.33333f,		0.0f, 0.0f, 1.0f,	-1.0f,	//206
 
@@ -604,10 +565,11 @@ int main()
 			-SKYBOX/2, 0.0f, SKYBOX/2,		0.4f, 0.4f, 0.4f,	5.0f, 0.0f,		0.0f, 1.0f, 0.0f,	-2.0f	//210
 		};
 
-		for (int i = 0; i < 24 * 12; i++)
-			vertices[187 * 12 + i] = skybox[i];
+		cout << sizeof(skybox) / sizeof(GLfloat) << endl;
+		for (int i = 0; i < sizeof(skybox) / sizeof(GLfloat); i++)
+			vertices[187 * ATTRIBS + i] = skybox[i];
 
-		GLuint indices[(44+24+48+16+54+12)*3] = {
+		GLuint indices[INDICES*3] = {
 			0, 1, 2,
 			0, 2, 3,	//Podstawa-top
 			4, 5, 6,
@@ -654,111 +616,67 @@ int main()
 			63, 59, 60	//Odlewnia, 44 sciany
 		};
 
+		int offset = 44*3;
 		pos = 1;
-		for (int i = 44*3; i < (44+24+48)*3; i += 18) //Odlewy
+		for (int i = 0; i < 24 + 48; i += 6) //Odlewy
 		{
-			indices[i] = 64;
-			indices[i + 1] = 64 + pos;
-			if (64 + pos + 2 < 89)
-				indices[i + 2] = 64 + pos + 2;
-			else
-				indices[i + 2] = 65;
-
-			indices[i + 3] = 64 + pos;
-			indices[i + 4] = 64 + pos + 1;
-			if (64 + pos + 3 < 89)
-				indices[i + 5] = 64 + pos + 3;
-			else
-				indices[i + 5] = 66;
+			indices[offset++] = 64;
+			indices[offset++] = 64 + pos;
+			indices[offset++] = (64 + pos + 2 < 89 ? 64 + pos + 2 : 65);
 			
-			indices[i + 6] = 64 + pos;
-			if (64 + pos + 3 < 89)
-				indices[i + 7] = 64 + pos + 3;
-			else
-				indices[i + 7] = 66;
-			if (64 + pos + 2 < 89)
-				indices[i + 8] = 64 + pos + 2;
-			else
-				indices[i + 8] = 65;
-
-
-			indices[i + 9] = 89;
-			indices[i + 10] = 89 + pos;
-			if (89 + pos + 2 < 114)
-				indices[i + 11] = 89 + pos + 2;
-			else
-				indices[i + 11] = 90;
+			indices[offset++] = 64 + pos;
+			indices[offset++] = 64 + pos + 1;
+			indices[offset++] = (64 + pos + 3 < 89 ? 64 + pos + 3 : 66);
 			
-			indices[i + 12] = 89 + pos;
-			indices[i + 13] = 89 + pos + 1;
-			if (89 + pos + 3 < 114)
-				indices[i + 14] = 89 + pos + 3;
-			else
-				indices[i + 14] = 91;
+			indices[offset++] = 64 + pos;
+			indices[offset++] = (64 + pos + 3 < 89 ? 64 + pos + 3 : 66);
+			indices[offset++] = (64 + pos + 2 < 89 ? 64 + pos + 2 : 65);
+			
 
-			indices[i + 15] = 89 + pos;
-			if (89 + pos + 3 < 114)
-				indices[i + 16] = 89 + pos + 3;
-			else
-				indices[i + 16] = 91;
-			if (89 + pos + 2 < 114)
-				indices[i + 17] = 89 + pos + 2;
-			else
-				indices[i + 17] = 90;
+			indices[offset++] = 89;
+			indices[offset++] = 89 + pos;
+			indices[offset++] = (89 + pos + 2 < 114 ? 89 + pos + 2 : 90);
+			
+			indices[offset++] = 89 + pos;
+			indices[offset++] = 89 + pos + 1;
+			indices[offset++] = (89 + pos + 3 < 114 ? 89 + pos + 3 : 91);
+
+			indices[offset++] = 89 + pos;
+			indices[offset++] = (89 + pos + 3 < 114 ? 89 + pos + 3 : 91);
+			indices[offset++] = (89 + pos + 2 < 114 ? 89 + pos + 2 : 90);
+			
+			pos += 2;
+		}
+
+		pos = 1;
+		for (int i = 0; i < 16; i += 2)
+		{
+			indices[offset++] = 113 + pos;
+			indices[offset++] = 113 + pos + 1;
+			indices[offset++] = (113 + pos + 3 < 130 ? 113 + pos + 3 : 115);
+			
+			indices[offset++] = 113 + pos;
+			indices[offset++] = (113 + pos + 3 < 130 ? 113 + pos + 3 : 115);
+			indices[offset++] = (113 + pos + 2 < 130 ? 113 + pos + 2 : 114);
 
 			pos += 2;
 		}
 
 		pos = 1;
-		for (int i = (44 + 24 + 48) * 3; i < (44 + 24 + 48 + 16)*3; i += 6)
+		for (int i = 0; i < 54; i += 3) //rekojesc
 		{
-			indices[i] = 113 + pos;
-			indices[i + 1] = 113 + pos + 1;
-			if (113 + pos + 3 < 130)
-				indices[i + 2] = 113 + pos + 3;
-			else
-				indices[i + 2] = 115;
+			indices[offset++] = 130;
+			indices[offset++] = 130 + pos;
+			indices[offset++] = (130 + pos + 2 < 179 ? 130 + pos + 2 : 131);
 
-			indices[i + 3] = 113 + pos;
-			if (113 + pos + 3 < 130)
-				indices[i + 4] = 113 + pos + 3;
-			else
-				indices[i + 4] = 115;
-			if (113 + pos + 2 < 130)
-				indices[i + 5] = 113 + pos + 2;
-			else
-				indices[i + 5] = 114;
+			indices[offset++] = 130 + pos;
+			indices[offset++] = 130 + pos + 1;
+			indices[offset++] = (130 + pos + 3 < 179 ? 130 + pos + 3 : 132);
 
-			pos += 2;
-		}
-
-		pos = 1;
-		for (int i = (44 + 24 + 48 + 16) * 3; i < (44 + 24 + 48 + 16 + 54) * 3; i += 9) //rekojesc
-		{
-			indices[i] = 130;
-			indices[i + 1] = 130 + pos;
-			if (130 + pos + 2 < 179)
-				indices[i + 2] = 130 + pos + 2;
-			else
-				indices[i + 2] = 131;
-
-			indices[i + 3] = 130 + pos;
-			indices[i + 4] = 130 + pos + 1;
-			if (130 + pos + 3 < 179)
-				indices[i + 5] = 130 + pos + 3;
-			else
-				indices[i + 5] = 132;
-
-			indices[i + 6] = 130 + pos;
-			if (130 + pos + 3 < 179)
-				indices[i + 7] = 130 + pos + 3;
-			else
-				indices[i + 7] = 132;
-			if (130 + pos + 2 < 179)
-				indices[i + 8] = 130 + pos + 2;
-			else
-				indices[i + 8] = 131;
-
+			indices[offset++] = 130 + pos;
+			indices[offset++] = (130 + pos + 3 < 179 ? 130 + pos + 3 : 132);
+			indices[offset++] = (130 + pos + 2 < 179 ?  130 + pos + 2 : 131);
+			
 			pos += 2;
 		}
 
@@ -778,8 +696,8 @@ int main()
 			207, 209, 210
 		};
 
-		for (int i = 0; i < 36; i++)
-			indices[i + (44 + 24 + 48 + 16 + 54) * 3] = skyboxIndices[i];
+		for (int i = 0; i < sizeof(skyboxIndices) / sizeof(GLuint); i++)
+			indices[offset++] = skyboxIndices[i];
 
 		GLuint VBO, EBO, VAO;
 		glGenVertexArrays(1, &VAO);
@@ -796,23 +714,23 @@ int main()
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 		// vertex geometry data
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 12 * sizeof(GLfloat), (GLvoid*)0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, ATTRIBS * sizeof(GLfloat), (GLvoid*)0);
 		glEnableVertexAttribArray(0);
 
 		// vertex color data
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 12 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, ATTRIBS * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 		glEnableVertexAttribArray(1);
 
 		// vertex texture coordinates
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 12 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, ATTRIBS * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
 		glEnableVertexAttribArray(2);
 
 		// vertex normal coordinates
-		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 12 * sizeof(GLfloat), (GLvoid*)(8 * sizeof(GLfloat)));
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, ATTRIBS * sizeof(GLfloat), (GLvoid*)(8 * sizeof(GLfloat)));
 		glEnableVertexAttribArray(3);
 
 		// vertex texture ID
-		glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, 12 * sizeof(GLfloat), (GLvoid*)(11 * sizeof(GLfloat)));
+		glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, ATTRIBS * sizeof(GLfloat), (GLvoid*)(11 * sizeof(GLfloat)));
 		glEnableVertexAttribArray(4);
 		
 
@@ -828,16 +746,16 @@ int main()
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 		// prepare textures
-		GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "floor.png");
-		GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "hammer.png");
-		GLuint texture2 = LoadMipmapTexture(GL_TEXTURE2, "hammer_side.png");
-		GLuint texture3 = LoadMipmapTexture(GL_TEXTURE3, "wood.png");
-		GLuint texture4 = LoadMipmapTexture(GL_TEXTURE4, "mold.png");
-		GLuint texture5 = LoadMipmapTexture(GL_TEXTURE5, "form.png");
-		GLuint texture6 = LoadMipmapTexture(GL_TEXTURE6, "bar.png");
-		GLuint texture7 = LoadMipmapTexture(GL_TEXTURE7, "triangle.png");
+		GLuint floorTex = LoadMipmapTexture(GL_TEXTURE0, "floor.png");
+		GLuint hammerTex = LoadMipmapTexture(GL_TEXTURE1, "hammer.png");
+		GLuint hammersideTex = LoadMipmapTexture(GL_TEXTURE2, "hammer_side.png");
+		GLuint woodTex = LoadMipmapTexture(GL_TEXTURE3, "wood.png");
+		GLuint moldTex = LoadMipmapTexture(GL_TEXTURE4, "mold.png");
+		GLuint formTex = LoadMipmapTexture(GL_TEXTURE5, "form.png");
+		GLuint barTex = LoadMipmapTexture(GL_TEXTURE6, "bar.png");
+		GLuint triangleTex = LoadMipmapTexture(GL_TEXTURE7, "triangle.png");
 		GLuint skyboxTex = LoadMipmapTexture(GL_TEXTURE8, "skybox.png");
-		GLuint grass = LoadMipmapTexture(GL_TEXTURE9, "grass.png");
+		GLuint grassTex = LoadMipmapTexture(GL_TEXTURE9, "grass.png");
 
 
 		bool goingUp = true, goingToRight = true;
@@ -854,62 +772,63 @@ int main()
 
 			// Bind Textures using texture units
 			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, texture0);
-			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture0"), 0);
+			glBindTexture(GL_TEXTURE_2D, floorTex);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "FloorTex"), 0);
 			glActiveTexture(GL_TEXTURE1);
-			glBindTexture(GL_TEXTURE_2D, texture1);
-			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
+			glBindTexture(GL_TEXTURE_2D, hammerTex);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "HammerTex"), 1);
 			glActiveTexture(GL_TEXTURE2);
-			glBindTexture(GL_TEXTURE_2D, texture2);
-			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture2"), 2);
+			glBindTexture(GL_TEXTURE_2D, hammersideTex);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "HammersideTex"), 2);
 			glActiveTexture(GL_TEXTURE3);
-			glBindTexture(GL_TEXTURE_2D, texture3);
-			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture3"), 3);
+			glBindTexture(GL_TEXTURE_2D, woodTex);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "WoodTex"), 3);
 			glActiveTexture(GL_TEXTURE4);
-			glBindTexture(GL_TEXTURE_2D, texture4);
-			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture4"), 4);
+			glBindTexture(GL_TEXTURE_2D, moldTex);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "MoldTex"), 4);
 			glActiveTexture(GL_TEXTURE5);
-			glBindTexture(GL_TEXTURE_2D, texture5);
-			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture5"), 5);
+			glBindTexture(GL_TEXTURE_2D, formTex);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "FormTex"), 5);
 			glActiveTexture(GL_TEXTURE6);
-			glBindTexture(GL_TEXTURE_2D, texture6);
-			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture6"), 6);
+			glBindTexture(GL_TEXTURE_2D, barTex);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "BarTex"), 6);
 			glActiveTexture(GL_TEXTURE7);
-			glBindTexture(GL_TEXTURE_2D, texture7);
-			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture7"), 7);
+			glBindTexture(GL_TEXTURE_2D, triangleTex);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "TriangleTex"), 7);
 			glActiveTexture(GL_TEXTURE8);
 			glBindTexture(GL_TEXTURE_2D, skyboxTex);
-			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Skybox"), 8);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "SkyboxTex"), 8);
 			glActiveTexture(GL_TEXTURE9);
-			glBindTexture(GL_TEXTURE_2D, grass);
-			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Grass"), 9);
+			glBindTexture(GL_TEXTURE_2D, grassTex);
+			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "GrassTex"), 9);
 
-			glUniform3f(glGetUniformLocation(theProgram.get_programID(), "lightColor"), lightColorR, lightColorG, lightColorB);
+			glUniform3f(glGetUniformLocation(theProgram.get_programID(), "lightDirection"), 0.0f, -15.0f, 0.0f);
+			glUniform3f(glGetUniformLocation(theProgram.get_programID(), "lightPosition"), 1.4f, 15.0f, 0.0f);
+			glUniform3f(glGetUniformLocation(theProgram.get_programID(), "lightDiffuseColor"), lightDiffuse, lightDiffuse, lightDiffuse);
+			glUniform3f(glGetUniformLocation(theProgram.get_programID(), "lightAmbientColor"), lightAmbient, lightAmbient, lightAmbient);
 
 			glm::mat4 rotate;
 			static GLfloat rot_angle = 0.0f;
 			rotate = glm::translate(rotate, glm::vec3(-1.2f, 0.8f, 0.0f));
 			rotate = glm::rotate(rotate, glm::radians(rot_angle), glm::vec3(0.0, 0.0, 1.0)); //obrot wokol osi Z
 			rotate = glm::translate(rotate, glm::vec3(1.2f, -0.8f, 0.0f));
-			if (goingUp)
-				rot_angle += rotate_speed; //predkosc obrotu
-			else
-				rot_angle -= rotate_speed;
+			
+			rot_angle += (goingUp ? rotate_speed : -rotate_speed); //predkosc obrotu
+			
 			if (rot_angle >= 90.0f)
 				goingUp = false;
 			if (rot_angle <= 0.0f)
 				goingUp = true;
-			GLuint rotateLoc = glGetUniformLocation(theProgram.get_programID(), "rotate");
-			glUniformMatrix4fv(rotateLoc, 1, GL_FALSE, glm::value_ptr(rotate));
+			
+			GLuint rotLoc = glGetUniformLocation(theProgram.get_programID(), "rotate");
+			glUniformMatrix4fv(rotLoc, 1, GL_FALSE, glm::value_ptr(rotate));
 
 
 			glm::mat4 trans;
 			static GLfloat trans_z = 0.0f;
 			trans = glm::translate(trans, glm::vec3(0.0f, 0.0f, -trans_z));
-			if (goingToRight)
-				trans_z += translate_speed;
-			else
-				trans_z -= translate_speed;
+			trans_z += (goingToRight ? translate_speed : -translate_speed);
+			
 			if (trans_z >= 0.6f)
 			{
 				goingToRight = false;
@@ -924,36 +843,21 @@ int main()
 				trans_z = 0.0f;
 				rot_angle = 0.0f;
 			}
-			GLuint translateLoc = glGetUniformLocation(theProgram.get_programID(), "translate");
-			glUniformMatrix4fv(translateLoc, 1, GL_FALSE, glm::value_ptr(trans));
+			GLuint transLoc = glGetUniformLocation(theProgram.get_programID(), "translate");
+			glUniformMatrix4fv(transLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
-			//----------------
-			//glm::mat4 camRot;
-			//camRot = glm::rotate(camRot, glm::radians(rot_angle), glm::vec3(0.0f, 1.0f, 0.0f));
-			//glm::vec3 cameraPos = glm::vec3(camRot * glm::vec4(0.0f, 0.0f, -3.0f, 1.0f));
 			glm::vec3 cameraPos = glm::vec3(posX, posY, posZ);
 
-			glUniform3fv(glGetUniformLocation(theProgram.get_programID(), "viewPos"), 1, glm::value_ptr(cameraPos)); //chyba niepotrzebne
-			//----------------
-
-			glm::mat4 view;
-			glm::mat4 projection;
-
-			//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -10.0f)); //to zamiast glm::lookAt i linijek miedzy kreskami
-			//view = glm::lookAt(cameraPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-			view = glm::lookAt(cameraPos, glm::vec3(lookX, lookY, lookZ), glm::vec3(0.0f, 1.0f, 0.0f));
-			projection = glm::perspective(45.0f, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
-
+			glm::mat4 view = glm::lookAt(cameraPos, glm::vec3(lookX, lookY, lookZ), glm::vec3(0.0f, 1.0f, 0.0f));
 			GLint viewLoc = glGetUniformLocation(theProgram.get_programID(), "view");
-			GLint projectionLoc = glGetUniformLocation(theProgram.get_programID(), "projection");
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
+			glm::mat4 projection = glm::perspective(45.0f, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+			GLint projectionLoc = glGetUniformLocation(theProgram.get_programID(), "projection");
 			glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
-
 
 			// Draw our first triangle
 			theProgram.Use();
-			//theProgram.setVec3("fkokf", 1.0f, 1.0f, 1.0f);
 
 			glBindVertexArray(VAO);
 			glDrawElements(GL_TRIANGLES, _countof(indices), GL_UNSIGNED_INT, 0);
