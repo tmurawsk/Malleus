@@ -3,7 +3,7 @@ in vec3 vecColor;
 in vec2 TexCoord;
 in vec3 vecNormal;
 in float TexID;
-in vec3 vPosition;
+in vec3 vecPosition;
 
 out vec4 color;
 
@@ -18,26 +18,29 @@ uniform sampler2D TriangleTex;
 uniform sampler2D SkyboxTex;
 uniform sampler2D GrassTex;
 
-uniform vec3 lightDirection;
+uniform vec3 camPos;
 uniform vec3 lightPosition;
 uniform vec3 lightDiffuseColor;
 uniform vec3 lightAmbientColor;
 
 vec3 light() {
-    float distance = length(lightPosition - vPosition);
+    float distance = length(lightPosition - vecPosition);
     float attenuation = 1.0f / (0.1f + 0.025*distance + 0.05*distance*distance);
 
-    vec3 lightDir = normalize(lightPosition - vPosition);
-    float diff = max(dot(vecNormal, lightDir), 0.0);
+    vec3 lightDir = normalize(lightPosition - vecPosition);
+	float cosinDiff = dot(vecNormal, lightDir);
+    float diffuse = max(0.0f, cosinDiff);
 
-    vec3 diffuse = lightDiffuseColor * diff;
+    vec3 lightDiffuse = diffuse * lightDiffuseColor;
 
-	vec3 viewDir = normalize(lightDirection - vPosition);
-	vec3 reflectDir = reflect(-lightDir, vecNormal); 
-	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32.0);
-	vec3 specular = 0.5f * spec * lightDiffuseColor;  
+	vec3 reflectDir = reflect(-lightDir, vecNormal);
+	vec3 surfaceToCamera = normalize(camPos - vecPosition);
+	float cosinSpec = max(0.0f, dot(surfaceToCamera, reflectDir));
+	float specular = pow(cosinSpec, 32.0f);
 
-    return vec3(lightAmbientColor + attenuation * (diffuse + specular));
+	vec3 lightSpecular = 0.5f * specular * vec3(2.0f);
+
+    return vec3(lightAmbientColor + attenuation * (lightDiffuse + lightSpecular));
 }
 
 void main()

@@ -25,7 +25,8 @@ GLfloat lookX = posX + RADIUS * cos(glm::radians(lookAngleV)) * cos(glm::radians
 GLfloat lookY = posY + RADIUS * sin(glm::radians(lookAngleV));
 GLfloat lookZ = posZ + RADIUS * cos(glm::radians(lookAngleV)) * sin(glm::radians(lookAngleH));
 GLfloat rotate_speed = 0.1f, translate_speed = 0.000333333333333f;
-GLfloat lightAmbient = 1.0f, lightDiffuse = 40.0f;
+GLfloat lightAmbient = 1.0f, lightDiffuse = 10.0f;
+GLfloat lightPosX = 1.4f, lightPosY = 10.0f, lightPosZ = 0.0f;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -192,6 +193,22 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			lightDiffuse = (lightDiffuse - 1.0f > 0.0f ? lightDiffuse - 1.0f : 0.0f);
 			break;
 
+		case GLFW_KEY_I:
+			lightPosZ += 0.1f;
+			break;
+
+		case GLFW_KEY_K:
+			lightPosZ -= 0.1f;
+			break;
+
+		case GLFW_KEY_J:
+			lightPosX += 0.1f;
+			break;
+
+		case GLFW_KEY_L:
+			lightPosX -= 0.1f;
+			break;
+
 		case GLFW_KEY_ESCAPE:
 			glfwSetWindowShouldClose(window, GL_TRUE);
 			break;
@@ -272,10 +289,10 @@ int main()
 
 		GLfloat vertices[VERTICES * ATTRIBS] = {
 			// coordinates			// color			// texture		// normals			// textureID
-			2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 2.0f,		1.0f, 1.0f, 1.0f,	1.0f,	//0
-			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 0.0f,		1.0f, 1.0f, 1.0f,	1.0f,	//1
-			-2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 0.0f,		1.0f, 1.0f, 1.0f,	1.0f,	//2
-			-2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 2.0f,		1.0f, 1.0f, 1.0f,	1.0f,	//3
+			2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 2.0f,		0.0f, 1.0f, 0.0f,	1.0f,	//0
+			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 0.0f,		0.0f, 1.0f, 0.0f,	1.0f,	//1
+			-2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 0.0f,		0.0f, 1.0f, 0.0f,	1.0f,	//2
+			-2.0f, 0.2f, 1.0f,		0.4f, 0.4f, 0.4f,	2.0f, 2.0f,		0.0f, 1.0f, 0.0f,	1.0f,	//3
 
 			2.0f, 0.2f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 2.0f,		0.0f, 0.0f, -1.0f,	1.0f,	//4
 			2.0f, 0.0f, -1.0f,		0.4f, 0.4f, 0.4f,	0.0f, 1.8f,		0.0f, 0.0f, -1.0f,	1.0f,	//5
@@ -343,15 +360,15 @@ int main()
 			1.696f, 0.36f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	3.0f,	//54
 			1.696f, 1.24f, -0.296f,	0.3f, 0.3f, 0.3f,	1.0f, 1.0f,		1.0f, 0.0f, 0.0f,	3.0f,	//55
 
-			1.743f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	0.0f, 2.01f,	1.0f, 0.0f, 0.0f,	6.0f,	//56
+			1.743f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	0.0f, 2.01f,	0.0f, 1.0f, 0.0f,	6.0f,	//56
 			1.743f, 0.2f, 0.93f,	1.0f, 0.5f, 0.0f,	0.165f, 2.01f,	1.0f, 0.0f, 0.0f,	6.0f,	//57
 			1.743f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	0.165f, 0.0f,	1.0f, 0.0f, 0.0f,	6.0f,	//58
-			1.743f, 0.305f, -0.344f,1.0f, 0.5f, 0.0f,	0.0f, 0.0f,		1.0f, 0.0f, 0.0f,	6.0f,	//59
+			1.743f, 0.305f, -0.344f,1.0f, 0.5f, 0.0f,	0.0f, 0.0f,		0.0f, 1.0f, 0.0f,	6.0f,	//59
 
-			1.07f, 0.305f, -0.344f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		-1.0f, 0.0f, 0.0f,	6.0f,	//60
+			1.07f, 0.305f, -0.344f,	1.0f, 0.5f, 0.0f,	1.0f, 0.0f,		0.0f, 1.0f, 0.0f,	6.0f,	//60
 			1.07f, 0.2f, -0.344f,	1.0f, 0.5f, 0.0f,	0.835f, 0.0f,	-1.0f, 0.0f, 0.0f,	6.0f,	//61
 			1.07f, 0.2f, 0.93f,		1.0f, 0.5f, 0.0f,	0.835f, 2.01f,	-1.0f, 0.0f, 0.0f,	6.0f,	//62
-			1.07f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	1.0f, 2.01f,	-1.0f, 0.0f, 0.0f,	6.0f,	//63
+			1.07f, 0.305f, 0.93f,	1.0f, 0.5f, 0.0f,	1.0f, 2.01f,	0.0f, 1.0f, 0.0f,	6.0f,	//63
 
 			1.4f, 0.369f, 0.6f,		0.4f, 0.0f, 1.0f,	0.5f, 0.5f,		0.0f, 1.0f, 0.0f,	5.0f	//64
 		};
@@ -368,7 +385,7 @@ int main()
 			vertices[i + 5] = 1.0f;	//b
 			vertices[i + 6] = 0.5f + 0.5f * sin(glm::radians(angle));	//tx
 			vertices[i + 7] = 0.5f + 0.5f * cos(glm::radians(angle));	//ty
-			vertices[i + 8] = sin(glm::radians(angle));	//nx
+			vertices[i + 8] = -sin(glm::radians(angle));	//nx
 			vertices[i + 9] = 0.0f;	//ny
 			vertices[i + 10] = cos(glm::radians(angle));//nz
 			vertices[i + 11] = 5.0f;
@@ -381,7 +398,7 @@ int main()
 			vertices[i + 17] = 1.0f;	//b
 			vertices[i + 18] = 0.5f + 0.5f * sin(glm::radians(angle));	//tx
 			vertices[i + 19] = 0.5f + 0.5f * cos(glm::radians(angle));	//ty
-			vertices[i + 20] = sin(glm::radians(angle));	//nx
+			vertices[i + 20] = -sin(glm::radians(angle));	//nx
 			vertices[i + 21] = 0.0f;	//ny
 			vertices[i + 22] = cos(glm::radians(angle));//nz
 			vertices[i + 23] = 5.0f;
@@ -395,7 +412,7 @@ int main()
 			vertices[pos + 5] = 1.0f;	//b
 			vertices[pos + 6] = 0.5f + 0.5f * sin(glm::radians(angle));	//tx
 			vertices[pos + 7] = 0.5f + 0.5f * cos(glm::radians(angle));	//ty
-			vertices[pos + 8] = sin(glm::radians(angle));	//nx
+			vertices[pos + 8] = -sin(glm::radians(angle));	//nx
 			vertices[pos + 9] = 0.0f;	//ny
 			vertices[pos + 10] = cos(glm::radians(angle));//nz
 			vertices[pos + 11] = 5.0f;
@@ -408,7 +425,7 @@ int main()
 			vertices[pos + 17] = 1.0f;	//b
 			vertices[pos + 18] = 0.5f + 0.5f * sin(glm::radians(angle));	//tx
 			vertices[pos + 19] = 0.5f + 0.5f * cos(glm::radians(angle));	//ty
-			vertices[pos + 20] = sin(glm::radians(angle));	//nx
+			vertices[pos + 20] = -sin(glm::radians(angle));	//nx
 			vertices[pos + 21] = 0.0f;	//ny
 			vertices[pos + 22] = cos(glm::radians(angle));//nz
 			vertices[pos + 23] = 5.0f;
@@ -442,7 +459,7 @@ int main()
 			vertices[i + 5] = 0.7f;	//b
 			vertices[i + 6] = texX;	//tx
 			vertices[i + 7] = 0.0f;	//ty
-			vertices[i + 8] = sin(glm::radians(angle));	//nx
+			vertices[i + 8] = -sin(glm::radians(angle));	//nx
 			vertices[i + 9] = cos(glm::radians(angle));	//ny
 			vertices[i + 10] = 0.0f;//nz
 			vertices[i + 11] = 7.0f;
@@ -455,7 +472,7 @@ int main()
 			vertices[i + 17] = 0.7f;	//b
 			vertices[i + 18] = texX;	//tx
 			vertices[i + 19] = 2.0f;	//ty
-			vertices[i + 20] = sin(glm::radians(angle));	//nx
+			vertices[i + 20] = -sin(glm::radians(angle));	//nx
 			vertices[i + 21] = cos(glm::radians(angle));	//ny
 			vertices[i + 22] = 0.0f;//nz
 			vertices[i + 23] = 7.0f;
@@ -802,8 +819,8 @@ int main()
 			glBindTexture(GL_TEXTURE_2D, grassTex);
 			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "GrassTex"), 9);
 
-			glUniform3f(glGetUniformLocation(theProgram.get_programID(), "lightDirection"), 0.0f, -15.0f, 0.0f);
-			glUniform3f(glGetUniformLocation(theProgram.get_programID(), "lightPosition"), 1.4f, 15.0f, 0.0f);
+			glUniform3f(glGetUniformLocation(theProgram.get_programID(), "camPos"), posX, posY, posZ);
+			glUniform3f(glGetUniformLocation(theProgram.get_programID(), "lightPosition"), lightPosX, lightPosY, lightPosZ);
 			glUniform3f(glGetUniformLocation(theProgram.get_programID(), "lightDiffuseColor"), lightDiffuse, lightDiffuse, lightDiffuse);
 			glUniform3f(glGetUniformLocation(theProgram.get_programID(), "lightAmbientColor"), lightAmbient, lightAmbient, lightAmbient);
 
